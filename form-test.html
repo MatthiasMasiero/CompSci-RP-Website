@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>JavaScript Form Demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="css/style.css" /> -->
+    </head>
+
+    <body>
+        <div class="container">
+            <form id="subscription">
+                <h1>Subscribe</h1>
+                <div id="message"></div>
+                <div class="field">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your fullname" required />
+                    <small></small>
+                </div>
+                <div class="field">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" placeholder="Enter your email address" required />
+                    <small></small>
+                </div>
+                <div class="field">
+                    <button type="submit" class="full" id="submit">Subscribe</button>
+                </div>
+            </form>
+        </div>
+        <script src="script.js"></script>
+    </body>
+
+</html>
