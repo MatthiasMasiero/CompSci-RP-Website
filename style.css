@@ -17,7 +17,7 @@ body {
 
   
   
-
+/* 
   input[type="password"]::placeholder {
     text-align: center;
   }
@@ -41,7 +41,7 @@ body {
   }
   input[type="email"]:: -ms-input-placeholder {
       text-align: center;
-  }
+  } */
  
   
   input[type="submit"] {
