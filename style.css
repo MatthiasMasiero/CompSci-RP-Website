@@ -1,43 +1,58 @@
+center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 body {
     background: linear-gradient(-45deg, #ffea05, #ff531f, #cc1eb5, #2f34c6, #56f59b, #3cf708);
     background-size: 600% 700%;
     animation: gradient 15s ease infinite;
   }
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
   
   
+<<<<<<< HEAD
 /* 
   input[type="password"]::placeholder {
+=======
+
+input[type="password"]::placeholder {
+  text-align: center;
+}
+/* input[type="password"]:: -ms-input-placeholder {
+>>>>>>> 0e0f6ffe5f67dec7108bf3eb7f6cb9f6495d74b2
     text-align: center;
-  }
-  input[type="password"]:: -ms-input-placeholder {
-      text-align: center;
-  }
-  input[type="name"]::placeholder {
+} */
+input[type="name"]::placeholder {
+  text-align: center;
+}
+/* input[type="name"]:: -ms-input-placeholder {
     text-align: center;
-  }
-  input[type="name"]:: -ms-input-placeholder {
-      text-align: center;
-  }
-  input[type="period"]::placeholder {
+} */
+input[type="period"]::placeholder {
+  text-align: center;
+}
+/* input[type="period"]:: -ms-input-placeholder {
     text-align: center;
-  }
-  input[type="period"]:: -ms-input-placeholder {
-      text-align: center;
-  }
-  input[type="email"]::placeholder {
+} */
+input[type="email"]::placeholder {
+  text-align: center;
+}
+/* input[type="email"]:: -ms-input-placeholder {
     text-align: center;
+<<<<<<< HEAD
   }
   input[type="email"]:: -ms-input-placeholder {
       text-align: center;
@@ -56,4 +71,21 @@ body {
   input[type="submit"]:hover {
     background-color: #50a145;
   }
+=======
+} */
+
+
+input[type="submit"] {
+  background-color: hsl(0, 0%, 100%);
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #50a145;
+}
+>>>>>>> 0e0f6ffe5f67dec7108bf3eb7f6cb9f6495d74b2
   
