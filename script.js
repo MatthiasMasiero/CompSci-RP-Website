@@ -30,3 +30,9 @@
 //     `;
 // };
 
+function displayData (form) {
+    var inputValue = form.email.value;
+    var message = "Your email address is: " + inputValue;
+    document.getElementById("result").innerHTML = message;
+}
+

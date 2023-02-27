@@ -23,16 +23,8 @@ body {
 
   
   
-<<<<<<< HEAD
 /* 
   input[type="password"]::placeholder {
-=======
-
-input[type="password"]::placeholder {
-  text-align: center;
-}
-/* input[type="password"]:: -ms-input-placeholder {
->>>>>>> 0e0f6ffe5f67dec7108bf3eb7f6cb9f6495d74b2
     text-align: center;
 } */
 input[type="name"]::placeholder {
@@ -52,7 +44,6 @@ input[type="email"]::placeholder {
 }
 /* input[type="email"]:: -ms-input-placeholder {
     text-align: center;
-<<<<<<< HEAD
   }
   input[type="email"]:: -ms-input-placeholder {
       text-align: center;
@@ -71,21 +62,4 @@ input[type="email"]::placeholder {
   input[type="submit"]:hover {
     background-color: #50a145;
   }
-=======
-} */
-
-
-input[type="submit"] {
-  background-color: hsl(0, 0%, 100%);
-  color: rgb(0, 0, 0);
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type="submit"]:hover {
-  background-color: #50a145;
-}
->>>>>>> 0e0f6ffe5f67dec7108bf3eb7f6cb9f6495d74b2
   
