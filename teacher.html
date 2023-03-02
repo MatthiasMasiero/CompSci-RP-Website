@@ -26,20 +26,20 @@
             <th>Actions</th>
         </tr>
         <tr>
-            <td>John</td>
-            <td>1</td>
+            <td contenteditable="false">John</td>
+            <td contenteditable="false">1</td>
             <td>0</td>
             <td><button id="add" contenteditable="false">Add</button><button id="subtract" contenteditable="false">Subtract</button></td>
         </tr>
         <tr>
-            <td>Bob</td>
-            <td>2</td>
+            <td contenteditable="false">Bob</td>
+            <td contenteditable="false">2</td>
             <td>0</td>
             <td><button id="add" contenteditable="false">Add</button><button id="subtract" contenteditable="false">Subtract</button></td>
         </tr>
         <tr>
-            <td>Sam</td>
-            <td>3</td>
+            <td contenteditable="false">Sam</td>
+            <td contenteditable="false">3</td>
             <td>0</td>
             <td><button id="add" contenteditable="false">Add</button><button id="subtract" contenteditable="false">Subtract</button></td>
         </tr>
@@ -48,34 +48,31 @@
     
     <!-- WHEN YOU CLICK THIS BUTTON, SCRIPT TO RETRIEVE THE TEXT FROM data.txt AND PRINT TO CONSOLE -->
     <!-- THE SCRIPT USES JQUERY -->
-    <button id="btnGetText" onclick="getTxt()">Get Text</button>
+    <!-- <button id="btnGetText" onclick="getTxt()">Get Text</button> -->
     <div id="fText"></div>
     <script>
-        function getTxt() {
-            $.get("data.csv", function(data) {
-                // parse the data into html table rows to add to the table
-                var rows = data.split("\n");
-                var table = document.getElementById("table");
-                var existingRows = table.rows.length
-                alert(existingRows);
-                for (var i = 0; i < rows.length; i++) {
-                    var row = table.insertRow(existingRows + i);
-                    var cells = rows[i].split(",");
-                    for (var j = 0; j < cells.length; j++) {
-                        var cell = row.insertCell(j);
-                        cell.innerHTML = cells[j];
-                    }
-                    row.insertCell(3).innerHTML = "<button id='add' contenteditable='false'>Add</button><button id='subtract' contenteditable='false'>Subtract</button>";
+        $.get("data.csv", function(data) {
+            // parse the data from data.csv into the html table
+            var htmlTable = document.getElementById("table");
+            var dataRows = data.split("\n");
+            console.log(dataRows);
+            var initialRows = htmlTable.rows.length;
+            for (var i = 0; i < dataRows.length; i++) {
+                var newRow = htmlTable.insertRow(i + initialRows);
+                var insertRow = dataRows[i].split(",");
+                for (var j = 0; j < insertRow.length; j++) {
+                    var newCell = newRow.insertCell(j);
+                    newCell.contenteditable = "false";
+                    newCell.innerHTML = insertRow[j];
                 }
-            });
-        }
-    </script>
+
+                
+                var buttons = newRow.insertCell(3);
+                buttons.innerHTML = "<button id='add' contenteditable='false'>Add</button><button id='subtract' contenteditable='false'>Subtract</button>";
+            }
+        });
 
 
-    <!-- NOTE: REMOVE 'GET TEXT' BUTTON AND RUN THE ABOVE SCRIPT ON PAGE LOAD, BEFORE THE BELOW SCRIPT -->
-
-    <!-- SCRIPT FOR ADD AND SUBTRACT BUTTONS -->
-    <script>
         var table = document.getElementById("table");
         var rows = table.rows
         for (var i = 0; i < rows.length; i++) {
@@ -89,7 +86,7 @@
                     var points = cell.innerHTML;
                     if (this.id == "add") {
                         points++;
-                    } else if (points > 0) {
+                    } else {
                         points--;
                     }
                     cell.innerHTML = points;
@@ -100,3 +97,6 @@
 
 </body>
 </html>
+
+
+
