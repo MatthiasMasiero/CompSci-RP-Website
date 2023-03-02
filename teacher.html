@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Page</title>
+    <link rel="stylesheet" href="teacher.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <!-- BUTTON TO SAVE TABLE DATA -->
+    <button id="save">Save</button>
+
+    
+
+    <!-- EDITABLE TABLE -->
+    <!-- has columns: Name, Period, Rewards Points, Actions -->
+    <!-- the first row (column names) should not be editable -->
+    <table id="table" contenteditable="true">
+        <tr contenteditable="false">
+            <th>Name</th>
+            <th>Period</th>
+            <th>Rewards Points</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>1</td>
+            <td>0</td>
+            <td><button id="add" contenteditable="false">Add</button><button id="subtract" contenteditable="false">Subtract</button></td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>2</td>
+            <td>0</td>
+            <td><button id="add" contenteditable="false">Add</button><button id="subtract" contenteditable="false">Subtract</button></td>
+        </tr>
+        <tr>
+            <td>Sam</td>
+            <td>3</td>
+            <td>0</td>
+            <td><button id="add" contenteditable="false">Add</button><button id="subtract" contenteditable="false">Subtract</button></td>
+        </tr>
+    </table>
+
+    
+    <!-- WHEN YOU CLICK THIS BUTTON, SCRIPT TO RETRIEVE THE TEXT FROM data.txt AND PRINT TO CONSOLE -->
+    <!-- THE SCRIPT USES JQUERY -->
+    <button id="btnGetText" onclick="getTxt()">Get Text</button>
+    <div id="fText"></div>
+    <script>
+        function getTxt() {
+            $.get("data.csv", function(data) {
+                // parse the data into html table rows to add to the table
+                var rows = data.split("\n");
+                var table = document.getElementById("table");
+                var existingRows = table.rows.length
+                alert(existingRows);
+                for (var i = 0; i < rows.length; i++) {
+                    var row = table.insertRow(existingRows + i);
+                    var cells = rows[i].split(",");
+                    for (var j = 0; j < cells.length; j++) {
+                        var cell = row.insertCell(j);
+                        cell.innerHTML = cells[j];
+                    }
+                    row.insertCell(3).innerHTML = "<button id='add' contenteditable='false'>Add</button><button id='subtract' contenteditable='false'>Subtract</button>";
+                }
+            });
+        }
+    </script>
+
+
+    <!-- NOTE: REMOVE 'GET TEXT' BUTTON AND RUN THE ABOVE SCRIPT ON PAGE LOAD, BEFORE THE BELOW SCRIPT -->
+
+    <!-- SCRIPT FOR ADD AND SUBTRACT BUTTONS -->
+    <script>
+        var table = document.getElementById("table");
+        var rows = table.rows
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var cell = row.cells[3];
+            var buttons = cell.getElementsByTagName("button");
+            for (var j = 0; j < buttons.length; j++) {
+                var button = buttons[j];
+                button.onclick = function() {
+                    var cell = this.parentNode.parentNode.cells[2];
+                    var points = cell.innerHTML;
+                    if (this.id == "add") {
+                        points++;
+                    } else if (points > 0) {
+                        points--;
+                    }
+                    cell.innerHTML = points;
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
