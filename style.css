@@ -21,6 +21,8 @@ body {
   }
 }
 
+
+
   
   
 /* 
@@ -61,5 +63,9 @@ input[type="email"]::placeholder {
   
   input[type="submit"]:hover {
     background-color: #50a145;
+  }
+
+  input[type="back"]:hover {
+    background-color: #b92924;
   }
   
