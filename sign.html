@@ -9,7 +9,9 @@
 </head>
 <body>
     <center>
-        <h1>Signup</h1>
+        <h1>
+            Signup
+        </h1>
         <form method="post">
             <input type="name" name="name" id="name" placeholder="Full name"required />
             <br><br>
@@ -60,14 +62,32 @@
                 left: 0;
             }
             
+            body {
+                background: linear-gradient(-45deg, #c1c1c1, #b2b3b3, #88888a, #5a5a5a, #4a4a4a, #5a5a5a, #88888a, #b2b3b3, #c1c1c1);
+                background-size: 600% 700%;
+                animation: gradient 30s infinite;
+            }
+            @keyframes gradient {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
 
+            h1 {
+             color: white;
 
+            }
+
+            h1 {
+                text-shadow: 2px 2px 2px #343434;
+            }
         </style>
     </center>
-
-
-
-
 </body>
-
 </html>

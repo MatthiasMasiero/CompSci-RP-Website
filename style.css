@@ -7,7 +7,7 @@ center {
 body {
     background: linear-gradient(-45deg, #ffea05, #ff531f, #cc1eb5, #2f34c6, #56f59b, #3cf708);
     background-size: 600% 700%;
-    animation: gradient 15s ease infinite;
+    animation: gradient 20s infinite;
   }
 @keyframes gradient {
   0% {
@@ -53,7 +53,7 @@ input[type="email"]::placeholder {
  
   
   input[type="submit"] {
-    background-color: hsl(0, 0%, 100%);
+    background-color: rgba(255, 255, 255, 0.4);
     color: rgb(0, 0, 0);
     padding: 8px 16px;
     border: none;
@@ -62,7 +62,8 @@ input[type="email"]::placeholder {
   }
   
   input[type="submit"]:hover {
-    background-color: #50a145;
+    /* background-color: #50a145; */
+    background-color: rgb(255, 255, 255);
   }
 
   input[type="back"]:hover {
