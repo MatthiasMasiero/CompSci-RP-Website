@@ -5,13 +5,13 @@
 
 <head>
         <title>Mrs. Tan's Rewards Points</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <center>
         <h1>Mrs. Tan's Rewards Points</h1>
         
-        <form action="" id="login" method="post">
+        <form action="login" id="login" method="post">
             <input type="password" name="password" id="password" placeholder="Password" required/>
             <br><br>
             <input type="submit" value="Login">
@@ -60,7 +60,7 @@ function myFunction() {
 
 
         <!-- make a sign up button that redirects to sign.html -->
-        <form action="sign.html" id="signup">
+        <form action="sign" id="signup" method="get">
             <input type="submit" value="Sign Up">
         </form>
       
