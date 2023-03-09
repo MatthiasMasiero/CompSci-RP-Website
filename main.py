@@ -14,6 +14,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # create the database object
 db = SQLAlchemy(app)
 
+teacherPassword = 314159
+
 class Student(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column(db.String(100))
@@ -25,9 +27,9 @@ class Student(db.Model):
         self.name = name
         self.email = email
         # TODO: password should be initialized to a random n-digit number
-        randomPassword = random.randint(0000, 9999)
+        randomPassword = random.randint(000000, 999999)
         if randomPassword in Student.password:
-            randomPassword = random.randint(0000, 9999)
+            randomPassword = random.randint(000000, 999999)
         self.password = random
         self.rp = 0
 
@@ -43,8 +45,30 @@ def home():
     elif 'teacher' in session:
         flash('You are already logged in!')
         return redirect(url_for("teacher"))
-        
-    return render_template("login.html")
+    else:
+        # user needs to log in
+
+        # if you're trying to log in:
+        if request.method == "POST":
+            # get the form data
+            password = request.form["password"]
+            
+            # check if the password is in the database
+            found_user = Student.query.filter_by(password=password).first()
+            if found_user:
+                # log the student in
+                if found_user.password == teacherPassword:
+                    session['teacher'] == found_user
+                    return redirect(url_for("teacher"))
+                else:
+                    session['student'] = found_user
+                    return redirect(url_for("student"))
+            
+            # if not, flash an error message
+            flash("Password not found")
+
+        # if you're not trying to log in, just render the page
+        return render_template("login.html")
 
 # route for the signup page
 @app.route("/signup", methods=["POST", "GET"])
