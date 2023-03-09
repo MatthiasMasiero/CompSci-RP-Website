@@ -31,18 +31,21 @@ body {
 } */
 input[type="name"]::placeholder {
   text-align: center;
+  color:rgba(211, 211, 211, 0.801)
 }
 /* input[type="name"]:: -ms-input-placeholder {
     text-align: center;
 } */
-input[type="period"]::placeholder {
+input[type="number"]::placeholder {
   text-align: center;
+  color:rgba(211, 211, 211, 0.801)
 }
 /* input[type="period"]:: -ms-input-placeholder {
     text-align: center;
 } */
 input[type="email"]::placeholder {
   text-align: center;
+  color:rgba(211, 211, 211, 0.801)
 }
 /* input[type="email"]:: -ms-input-placeholder {
     text-align: center;

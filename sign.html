@@ -15,7 +15,7 @@
         <form method="post">
             <input type="name" name="name" id="name" placeholder="Full name"required />
             <br><br>
-            <input type="period" name="period" id="period" placeholder="Period #"required />
+            <input type="number" name="period" id="period" placeholder="Period #"required />
             <br><br>
             <input type="email" name="email" id="email" placeholder="School email"required />
             <br><br>
@@ -88,16 +88,27 @@
                 text-shadow: 2px 2px 2px #343434;
             } 
 
-            /* input:valid {
-                background-color: #4CAF50;
+            #name:valid {
+                background-color: #2ed13363;
                 color: black;
             }
 
+            #period:valid {
+                background-color: #2ed13363;
+                color: black;
+            }
+
+            #email:valid {
+                background-color: #2ed13363;
+                color: black;
+            }
+
+
             input:invalid {
                 background-color: #cf1a0e19;
-                color: white;
-            } */
-/*
+                color: rgb(255, 255, 255);
+            } 
+
             input {
                 background-color: #cf1a0e19;
                 color: white;
@@ -119,11 +130,18 @@
                 margin: 5px;
             }
 
-            input {
+            #name {
                 width: 200px;
-            }
+            } 
 
-             */
+            #period {
+                width: 200px;
+            } 
+
+            #email {
+                width: 200px;
+            } 
+            
 
         </style>
     </center>
