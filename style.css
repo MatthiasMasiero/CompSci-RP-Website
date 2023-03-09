@@ -53,7 +53,9 @@ input[type="email"]::placeholder {
   input[type="email"]:: -ms-input-placeholder {
       text-align: center;
   } */
- 
+ input[type="password"]::placeholder {
+    text-align: center;
+  }
   
   input[type="submit"] {
     background-color: rgba(255, 255, 255, 0.4);

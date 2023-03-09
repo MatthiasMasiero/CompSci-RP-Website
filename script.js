@@ -1,3 +1,9 @@
+
+
+
+
+
+
 // const btn = document.querySelector('#submit');
 // const form = document.querySelector('#subscription');
 // const messageEl = document.querySelector('#message');
@@ -35,4 +41,6 @@ function displayData (form) {
     var message = "Your email address is: " + inputValue;
     document.getElementById("result").innerHTML = message;
 }
+
+
 
