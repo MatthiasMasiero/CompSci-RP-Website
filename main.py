@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = "hello"
 
 # settings for sql database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # create the database object
@@ -51,6 +51,9 @@ class Student(db.Model):
 
 
         self.rp = 0
+
+    def __repr__(self):
+        return f"{self.name} ({self.password}, {self.rp}points)"
     
 
 # TODO: create the send_email method for registering students
@@ -84,17 +87,28 @@ def login():
             if not password.isdigit():
                 flash("Please enter a number!")
                 return redirect(url_for("login"))
-
-            found_user = Student.query.filter_by(password=password).first()
-
+            
+            # prompt password again if it's not 6 digits
+            if len(password) != 6:
+                flash("Please enter a 6-digit number!")
+                return redirect(url_for("login"))
+            
+            # check if the teacher is trying to log in
+            if password == teacherPassword:
+                # log the teacher in
+                session['teacher'] = 'teacher'
+                flash("Logged in!")
+                return redirect(url_for("teacher"))
+            
             # if password found, log the user in
+            found_user = Student.query.filter_by(password=password).first()
             if found_user:
-                # check if the user is a teacher
-                if found_user.password == teacherPassword:
-                    # log the teacher in
-                    session['teacher'] = found_user.name
-                    flash("Logged in!")
-                    return redirect(url_for("teacher"))
+                # log the student in
+                print('logging in student')
+                session['student'] = found_user
+                flash("Logged in!")
+                return redirect(url_for("student"))
+            
             # if password not found, display an error message
             else:
                 flash("Password not found!")
@@ -135,19 +149,26 @@ def register():
             # create a new student object
             new_student = Student(name, int(period), email)
 
-
-            # TODO: send the new student's password to their email
-            send_email(email, new_student.password)
-
             # add the new student to the database
             db.session.add(new_student)
             db.session.commit()
+            print('added to database')
+
+            # # TODO: send the new student's password to their email
+            # send_email(email, new_student.password)
+
+            # # add the new student to the database
+            # db.session.add(new_student)
+            # db.session.commit()
 
             # log the student in
             session['student'] = new_student
+            print('logged in')
+            print(session['student'])
 
             # redirect to the student view
             flash("Registered!")
+            print('redirecting')
             return redirect(url_for("student"))
         else:
             # user is not trying to register
@@ -178,6 +199,7 @@ def logout():
 @app.route("/student")
 @app.route("/s")
 def student():
+    print('student view')
     # first check if the student is logged in
     if 'student' in session:
         # if logged in, display the student's info
@@ -196,22 +218,44 @@ def teacher():
     # first check if the teacher is logged in
     if 'teacher' in session:
         # if logged in, display the table of students
-        return render_template("teacher.html", student=Student.query.all())
+        return render_template("teacher.html", students=Student.query.all())
     
     else:
         # user is not logged in -> login page
         flash("You are not logged in!")
         return redirect(url_for("login"))
     
-# FOR DEVELOPMENT PURPOSES ONLY, DELETE THIS IN PRODUCTION
+# FOR DEVELOPMENT PURPOSES ONLY, DELETE THESE IN PRODUCTION
+# route for viewing the table
+@app.route("/view-table")
+def view_table():
+    return str(Student.query.all())
+
+# route for clearing the table
 @app.route("/clear-table")
 def clear_table():
     # clear the database
     db.drop_all()
     return "Table cleared!"
 
+# route for adding a student to the table
+@app.route("/add-student/<name>/<period>/<email>")
+def add_student(name, period, email):
+    # create a new student object
+    new_student = Student(name, int(period), email)
+
+    # add the new student to the database
+    db.session.add(new_student)
+    db.session.commit()
+
+    return "Student added!"
+
+
+
 # run the app
 if __name__ == "__main__":
     with app.app_context():
+        print('Creating Database...')
+        db.drop_all()
         db.create_all()
     app.run(debug=True)

@@ -1,12 +1,46 @@
 {% extends "base.html" %}
-{% block title %} Login page {% endblock %}
+
+
+{% block title %} Teacher View {% endblock %}
+
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='teacher.css') }}">
+
+{% endblock %}
+
+
 {% block content %}
 
 
 <h1>Teacher View</h1>
 <h2>Welcome, Teacher!</h2>
 
+<!-- DISPLAY ALL STUDENT DATA IN A TABLE -->
+<!-- each student has a name, period, email, password, and rewards points -->
 
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Period</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Rewards Points</th>
+    </tr>
+    {% for student in students %}
+    <tr>
+        <td>{{ student.name }}</td>
+        <td>{{ student.period }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.password }}</td>
+        <td>{{ student.rp }}</td>
+    </tr>
+    {% endfor %}
+</table>
 
+<form action="logout" method="get">
+    <input type="submit" value="Logout">
+</form>
 
 {% endblock %}
