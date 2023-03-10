@@ -1,0 +1,33 @@
+body {
+    font: 100%/1.5 sans-serif;
+    background-color: #eee;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    text-shadow: 2px 3px 4px #282828;
+}
+
+label {
+    width: 90px;
+    text-align: right;
+}
+input {
+    background-color: #cf1a0e19;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+input:invalid {
+    border: 1px solid red;
+    background-color: #cf1a0e19;
+    color: rgb(255, 255, 255);
+}
+
+input:valid {
+    border: 1px solid black;
+}

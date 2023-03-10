@@ -1,7 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 import random
-import requests
 
 # create the flask app object
 app = Flask(__name__)
@@ -15,7 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # create the database object
 db = SQLAlchemy(app)
 
-teacherPassword = 314159
+teacherPassword = '314159'
 
 
 class Student(db.Model):
@@ -24,25 +23,39 @@ class Student(db.Model):
     name = db.Column(db.String(100))
     period = db.Column(db.Integer())
     email = db.Column(db.String(100))
-    password = db.Column(db.Integer())
+    password = db.Column(db.String(6))
     rp = db.Column(db.Integer())
 
     def __init__(self, name, period, email):
         self.name = name
-        self.period - period
+        self.period = period
         self.email = email
+
         # password is initialized to a random 6-digit number
-        randomPassword = random.randint(000000, 999999)
+        random_password = random.randint(000000, 999999)
+
         # make sure the password is unique
-        if Student.query.filter_by(password=randomPassword).first():
-            randomPassword = random.randint(000000, 999999)
-        self.password = randomPassword
+        # get all the passwords from the database
+        passwords = Student.query.with_entities(Student.password).all()
+        # check if the random password is already in the database
+        while str(random_password) in passwords:
+            random_password = random.randint(000000, 999999)
+
+        # add leading zeroes to the password if it's less than 6 digits
+        random_password = str(random_password)
+        while len(random_password) < 6:
+            random_password = "0" + random_password
+
+        # set the password
+        self.password = random_password
+
+
         self.rp = 0
     
 
 # TODO: create the send_email method for registering students
 def send_email(email, password):
-    return
+    return None
 
 
 # route for the home page (it's just the login page)
@@ -72,9 +85,6 @@ def login():
                 flash("Please enter a number!")
                 return redirect(url_for("login"))
 
-            # convert the password into a number for checking with the database
-            password = int(password)
-
             found_user = Student.query.filter_by(password=password).first()
 
             # if password found, log the user in
@@ -96,34 +106,35 @@ def login():
 
 # route for the register page
 # *to be used only by students
-@app.route("/signup")
-@app.route("/register")
+@app.route("/signup", methods=["POST", "GET"])
+@app.route("/register", methods=["POST", "GET"])
 def register():
     # first check if the user is logged in
     if 'student' in session:
         # redirect to the student view
         flash("You are already logged in!")
         return redirect(url_for("student"))
-    
+
     elif 'teacher' in session:
         # redirect to the teacher view
         flash("You are already logged in!")
         return redirect(url_for("teacher"))
-    
+
     else:
         # user is not logged in
 
         # check if the user is trying to register
         if request.method == "POST":
             # user is trying to register
-            
+
             # get the form data
             name = request.form["name"]
             period = request.form["period"]
             email = request.form["email"]
 
             # create a new student object
-            new_student = Student(name, period, email)
+            new_student = Student(name, int(period), email)
+
 
             # TODO: send the new student's password to their email
             send_email(email, new_student.password)
@@ -170,7 +181,7 @@ def student():
     # first check if the student is logged in
     if 'student' in session:
         # if logged in, display the student's info
-        return render_template("student.html", student=student)
+        return render_template("student.html", student=session['student'])
     
     else:
         # user is not logged in -> login page
@@ -191,6 +202,13 @@ def teacher():
         # user is not logged in -> login page
         flash("You are not logged in!")
         return redirect(url_for("login"))
+    
+# FOR DEVELOPMENT PURPOSES ONLY, DELETE THIS IN PRODUCTION
+@app.route("/clear-table")
+def clear_table():
+    # clear the database
+    db.drop_all()
+    return "Table cleared!"
 
 # run the app
 if __name__ == "__main__":

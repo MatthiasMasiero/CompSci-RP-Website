@@ -1,143 +1,42 @@
 {% extends "base.html" %}
-{% block title %} Login page {% endblock %}
-{% block styles %} <link rel="stylesheet" href="../../static/style.css"> {% endblock %}
+
+
+{% block title %} Register Page {% endblock %}
+
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+
+{% endblock %}
+
+
 {% block content %}
+
+
 <center>
-        <h1>
-            Signup
-        </h1>
-        <form action="#" method="post">
-            <input type="name" name="name" id="name" placeholder="Full name"required />
-            <br><br>
-            <input type="number" name="period" min="1" max="8" id="period" placeholder="Period #"required />
-            <br><br>
-            <input type="email" name="email" id="email" placeholder="School email"required />
-            <br><br>
-            <input type="submit" value="Sign Up" >
-        </form>
-        <br>
+    <h1>
+        Signup
+    </h1>
 
-        <form action="login" id="back" method="get">
-            <input type="submit" value="Back">
-        </form>
+    <form action="#" method="post">
+        <input type="name" name="name" id="name" placeholder="Full name"required />
+        <br><br>
+        <input type="number" name="period" min="1" max="8" id="period" placeholder="Period #"required />
+        <br><br>
+        <input type="email" name="email" id="email" placeholder="School email"required />
+        <br><br>
+        <input type="submit" value="Sign Up" >
+    </form>
 
+    <br>
 
-        <style>
-            center {
-                margin: auto;
-                width: 50%;
-                padding: 10px;
-            }
+    <form action="login" id="back" method="get">
+        <input type="submit" value="Back">
+    </form>
 
-            body {
-                font: 100%/1.5 sans-serif;
-                background-color: #eee;
-            }
+</center>
 
-            h1 {
-                text-align: center;
-                color: #333;
-            }
-
-            label {
-                width: 90px;
-                text-align: right;
-            }
-            input:invalid {
-                border: 1px solid red;
-            }
-            input:valid {
-                border: 1px solid black;
-            }
-
-            #back {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-            
-            body {
-                background: linear-gradient(-45deg, #c1c1c1, #b2b3b3, #88888a, #5a5a5a, #4a4a4a, #5a5a5a, #88888a, #b2b3b3, #c1c1c1);
-                background-size: 600% 700%;
-                animation: gradient 30s infinite;
-            }
-            @keyframes gradient {
-                0% {
-                    background-position: 0% 50%;
-                }
-                50% {
-                    background-position: 100% 50%;
-                }
-                100% {
-                    background-position: 0% 50%;
-                }
-            }
-
-            h1 {
-             color: white;
-
-            }
-
-            h1 {
-                text-shadow: 2px 2px 2px #343434;
-            } 
-
-            #name:valid {
-                background-color: #2ed13363;
-                color: black;
-            }
-
-            #period:valid {
-                background-color: #2ed13363;
-                color: black;
-            }
-
-            #email:valid {
-                background-color: #2ed13363;
-                color: black;
-            }
-
-
-            input:invalid {
-                background-color: #cf1a0e19;
-                color: rgb(255, 255, 255);
-            } 
-
-            input {
-                background-color: #cf1a0e19;
-                color: white;
-            }
-
-            input {
-                border: 1px solid white;
-            }
-
-            input {
-                border-radius: 5px;
-            }
-
-            input {
-                padding: 5px;
-            }
-
-            input {
-                margin: 5px;
-            }
-
-            #name {
-                width: 200px;
-            } 
-
-            #period {
-                width: 200px;
-            } 
-
-            #email {
-                width: 200px;
-            } 
-            
-
-        </style>
-    </center>
 
 {% endblock %}
