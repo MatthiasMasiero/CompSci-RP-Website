@@ -115,6 +115,7 @@ def teacher():
     return render_template("teacher.html")
 
 
+# run the app
 if __name__ == "__main__":
     # create the database
     with app.app_context():
