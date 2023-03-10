@@ -1,7 +1,12 @@
-h1 {
+h1, h2 {
   text-shadow: 1px 2px 3px #cfcfcf5c;
   color: #fff;
 } 
+h2 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
 
 body {
   display: flex;
@@ -346,6 +351,10 @@ body {
   --fall-duration: 9.258s;
   --fall-delay: 8.082s;
 } 
+
+
+
+
 
 
 

@@ -239,10 +239,10 @@ def clear_table():
     return "Table cleared!"
 
 # route for adding a student to the table
-@app.route("/add-student/<name>/<period>/<email>")
-def add_student(name, period, email):
+@app.route("/add-student")
+def add_student():
     # create a new student object
-    new_student = Student(name, int(period), email)
+    new_student = Student('name', 7, '123@mail.com')
 
     # add the new student to the database
     db.session.add(new_student)
@@ -250,7 +250,10 @@ def add_student(name, period, email):
 
     return "Student added!"
 
-
+# route to see the student view without logging in
+@app.route("/student-view")
+def student_view():
+    return render_template("student.html", student=Student.query.first(), random_tail_length=random.randint(1, 10))
 
 # run the app
 if __name__ == "__main__":
