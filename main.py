@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 import random
+import requests
 
 # create the flask app object
 app = Flask(__name__)
@@ -114,6 +115,13 @@ def student():
 def teacher():
     return render_template("teacher.html")
 
+random_number = random.randint(25, 50)
+
+# generate a random number between 0 and 500 and add 'em' to the end
+random_tail_length = f"{random.uniform(30, 50)}em"
+
+# send the random_tail_length value to the CSS using a POST request
+requests.post('http://localhost:8000/set-variable', data={'variableName': '--random-tail-length', 'variableValue': random_tail_length})
 
 # run the app
 if __name__ == "__main__":
