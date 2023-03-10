@@ -1,8 +1,13 @@
+h1 {
+  text-shadow: 1px 2px 3px #7d7d7d5c;
+} 
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  /* color of main background */
   background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
   overflow: hidden;
 }
@@ -17,7 +22,7 @@ body {
 }
 
 .star {
-  --star-color: var(--primary-color);
+  --star-color: white;
   --star-tail-length: 6em;
   --star-tail-height: 2px;
   --star-width: calc(var(--star-tail-length) / 6);
