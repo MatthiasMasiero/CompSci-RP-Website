@@ -346,6 +346,25 @@ body {
   --fall-duration: 9.258s;
   --fall-delay: 8.082s;
 } 
+.star:nth-child(51) {
+  --star-tail-length: 23.85em;
+  --top-offset: 55.05vh;
+  --fall-duration: 2.758s;
+  --fall-delay: 15.082s;
+} 
+
+.star:nth-child(52) {
+  --star-tail-length: 25.85em;
+  --top-offset: 100.05vh;
+  --fall-duration: 2.758s;
+  --fall-delay: 23.082s;
+} 
+.star:nth-child(53) {
+  --star-tail-length: 21.85em;
+  --top-offset: 20.05vh;
+  --fall-duration: 2.758s;
+  --fall-delay: 30.082s;
+} 
 
 
 
