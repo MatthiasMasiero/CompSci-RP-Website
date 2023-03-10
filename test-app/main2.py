@@ -21,12 +21,14 @@ class Student(db.Model):
     # create columns
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    period = db.Column(db.Integer())
     email = db.Column(db.String(100))
     password = db.Column(db.Integer())
     rp = db.Column(db.Integer())
 
     def __init__(self, name, period, email):
         self.name = name
+        self.period - period
         self.email = email
         # password is initialized to a random 6-digit number
         randomPassword = random.randint(000000, 999999)
@@ -36,15 +38,16 @@ class Student(db.Model):
         self.password = randomPassword
         self.rp = 0
     
+
 # TODO: create the send_email method for registering students
 def send_email(email, password):
     return
 
 
 # route for the home page (it's just the login page)
-@app.route("/")
-@app.route("/home")
-@app.route("/login")
+@app.route("/", methods=["POST", "GET"])
+@app.route("/home", methods=["POST", "GET"])
+@app.route("/login", methods=["POST", "GET"])
 def login():
     # first check if you're already logged in
     if 'student' in session:
@@ -62,9 +65,16 @@ def login():
         if request.method == "POST":
             # get the form data
             password = request.form["password"]
+            
+            # prompt password again if it's not a number
+            if not password.isdigit():
+                flash("Please enter a number!")
+                return redirect(url_for("login"))
 
-            # TODO: check if the password is in the database
-            found_user = None
+            # convert the password into a number for checking with the database
+            password = int(password)
+
+            found_user = Student.query.filter_by(password=password).first()
 
             # if password found, log the user in
             if found_user:
@@ -159,9 +169,7 @@ def student():
     # first check if the student is logged in
     if 'student' in session:
         # if logged in, display the student's info
-        # TODO: get student data from the database and pass to student.html
-        # return render_template("student.html", name=student.name, period=student.period, email=student.email, password=student.password, points=student.rp)
-        return "Student view page"
+        return render_template("student.html", student=student)
     
     else:
         # user is not logged in -> login page
@@ -176,9 +184,7 @@ def teacher():
     # first check if the teacher is logged in
     if 'teacher' in session:
         # if logged in, display the table of students
-        # TODO: get student data from the database and pass to teacher.html
-        # return render_template("teacher.html", students=students)
-        return "Teacher view page"
+        return render_template("teacher.html", student=Student.query.all())
     
     else:
         # user is not logged in -> login page
