@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+        <title>Mrs. Tan's Rewards Points</title>
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+        <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <center>
+        <h1>Mrs. Tan's Rewards Points</h1>
+        
+        <form action="#" id="login" method="post">
+            <input type="password" name="password" id="password" placeholder="Password" required/>
+            <br><br>
+            <input type="submit" value="Login">
+            <br><br>
+        </form>
+<!-- 
+        <input type="checkbox" onclick="myFunction()">Show Password
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+
+
+
+      
+        <form method="post">
+            Username
+            <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" required="" id="id_username">
+            Password
+            <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+            <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form> 
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+        });
+    </script> 
+ -->
+
+
+
+        <!-- make a sign up button that redirects to sign.html -->
+        <form action="sign.html" id="signup" method="get">
+            <input type="submit" value="Sign Up">
+        </form>
+      
+       
+    
+        
+
+        <style>
+            
+
+            body {
+                font: 100%/1.5 sans-serif;
+                background-color: #eee;
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+
+            label {
+                width: 90px;
+                text-align: right;
+            }
+            input:invalid {
+                border: 1px solid red;
+            }
+            input:valid {
+                border: 1px solid black;
+            }
+        </style>
+    </center>
+
+    <style>
+        h1 {
+             color: white;
+        }
+    
+        h1 {
+                text-shadow: 2px 3px 4px #282828;
+            }
+    </style>
+
+</body>
+
+</html>

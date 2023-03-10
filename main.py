@@ -1,11 +1,11 @@
-from flask import Flask, redirect, url_for, render_template, request, session, flash
+from flask import Flask, redirect, url_for, request, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 import random
 import requests
 
 # create the flask app object
 app = Flask(__name__)
-# secret key is used to encrypt the session data
+# set the secret key for the session
 app.secret_key = "hello"
 
 # settings for sql database
@@ -17,114 +17,183 @@ db = SQLAlchemy(app)
 
 teacherPassword = 314159
 
+
 class Student(db.Model):
+    # create columns
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    period = db.Column(db.Integer())
     email = db.Column(db.String(100))
     password = db.Column(db.Integer())
     rp = db.Column(db.Integer())
 
-    def __init__(self, name, email):
+    def __init__(self, name, period, email):
         self.name = name
+        self.period - period
         self.email = email
-        # TODO: password should be initialized to a random n-digit number
+        # password is initialized to a random 6-digit number
         randomPassword = random.randint(000000, 999999)
-        if randomPassword in Student.password:
+        # make sure the password is unique
+        if Student.query.filter_by(password=randomPassword).first():
             randomPassword = random.randint(000000, 999999)
-        self.password = random
+        self.password = randomPassword
         self.rp = 0
+    
 
-# route for the home page (it's just login)
+# TODO: create the send_email method for registering students
+def send_email(email, password):
+    return
+
+
+# route for the home page (it's just the login page)
 @app.route("/", methods=["POST", "GET"])
 @app.route("/home", methods=["POST", "GET"])
 @app.route("/login", methods=["POST", "GET"])
-def home():
+def login():
     # first check if you're already logged in
     if 'student' in session:
-        flash('You are already logged in!')
+        # redirect to the student view
+        flash("You are already logged in!")
         return redirect(url_for("student"))
     elif 'teacher' in session:
-        flash('You are already logged in!')
+        # redirect to the teacher view
+        flash("You are already logged in!")
         return redirect(url_for("teacher"))
     else:
-        # user needs to log in
+        # user is not logged in
 
-        # if you're trying to log in:
+        # check if the user is trying to log in
         if request.method == "POST":
             # get the form data
             password = request.form["password"]
             
-            # check if the password is in the database
+            # prompt password again if it's not a number
+            if not password.isdigit():
+                flash("Please enter a number!")
+                return redirect(url_for("login"))
+
+            # convert the password into a number for checking with the database
+            password = int(password)
+
             found_user = Student.query.filter_by(password=password).first()
+
+            # if password found, log the user in
             if found_user:
-                # log the student in
+                # check if the user is a teacher
                 if found_user.password == teacherPassword:
-                    session['teacher'] == found_user
+                    # log the teacher in
+                    session['teacher'] = found_user.name
+                    flash("Logged in!")
                     return redirect(url_for("teacher"))
-                else:
-                    session['student'] = found_user
-                    return redirect(url_for("student"))
-            
-            # if not, flash an error message
-            flash("Password not found")
+            # if password not found, display an error message
+            else:
+                flash("Password not found!")
+                return redirect(url_for("login"))
+        else:
+            # user is not trying to log in -> display the login page
+            return render_template("login.html")
+    
 
-        # if you're not trying to log in, just render the page
-        return render_template("login.html")
-
-# route for the signup page
-@app.route("/signup", methods=["POST", "GET"])
-def signup():
-    # first check if you're already logged in
+# route for the register page
+# *to be used only by students
+@app.route("/signup")
+@app.route("/register")
+def register():
+    # first check if the user is logged in
     if 'student' in session:
+        # redirect to the student view
+        flash("You are already logged in!")
         return redirect(url_for("student"))
+    
     elif 'teacher' in session:
+        # redirect to the teacher view
+        flash("You are already logged in!")
         return redirect(url_for("teacher"))
     
-    # if not, check if you're trying to sign up
-    if request.method == "POST":
-        
-        # get the form data
-        name = request.form["name"]
-        period = request.form["period"]
-        email = request.form["email"]
-        
-        # check if the email is already in the database
-        if Student.query.filter_by(email=email).first():
-            flash("Email already in use")
-            return redirect(url_for("signup"))
-        
-        # if not, create a new student object and add it to the database
-        student = Student(name, email)
-        db.session.add(student)
-        db.session.commit()
-        
-        # log the student in
-        session['student'] = student.email
-        return redirect(url_for("student"))
+    else:
+        # user is not logged in
+
+        # check if the user is trying to register
+        if request.method == "POST":
+            # user is trying to register
+            
+            # get the form data
+            name = request.form["name"]
+            period = request.form["period"]
+            email = request.form["email"]
+
+            # create a new student object
+            new_student = Student(name, period, email)
+
+            # TODO: send the new student's password to their email
+            send_email(email, new_student.password)
+
+            # add the new student to the database
+            db.session.add(new_student)
+            db.session.commit()
+
+            # log the student in
+            session['student'] = new_student
+
+            # redirect to the student view
+            flash("Registered!")
+            return redirect(url_for("student"))
+        else:
+            # user is not trying to register
+            # display the register page
+            return render_template("register.html")
+
+@app.route("/logout")
+def logout():
+    # first check if the user is logged in
+    if 'student' in session:
+        # log the student out
+        session.pop('student', None)
+        flash("Logged out!")
+        return redirect(url_for("login"))
     
-    # if you're not trying to sign up, just render the page
-    return render_template("sign.html")
+    elif 'teacher' in session:
+        # log the teacher out
+        session.pop('teacher', None)
+        flash("Logged out!")
+        return redirect(url_for("login"))
+    
+    else:
+        # user is not logged in
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
 
 # route for the student view
-@app.route("/student", methods=["POST", "GET"])
+@app.route("/student")
+@app.route("/s")
 def student():
-    # generate a random number between 0 and 50 and add 'em' to the end
-    random_tail_length = f"{random.uniform(30, 50)}em"
-    return render_template("student.html", student=session['student'], random_tail_length=random_tail_length)
+    # first check if the student is logged in
+    if 'student' in session:
+        # if logged in, display the student's info
+        return render_template("student.html", student=student)
+    
+    else:
+        # user is not logged in -> login page
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
 
 # route for the teacher view
 @app.route("/teacher")
+@app.route("/t")
 def teacher():
-    return render_template("teacher.html")
-
-random_number = random.randint(25, 50)
-
-
+    # first check if the teacher is logged in
+    if 'teacher' in session:
+        # if logged in, display the table of students
+        return render_template("teacher.html", student=Student.query.all())
+    
+    else:
+        # user is not logged in -> login page
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
 
 # run the app
 if __name__ == "__main__":
-    # create the database
     with app.app_context():
         db.create_all()
-    # run the app
     app.run(debug=True)

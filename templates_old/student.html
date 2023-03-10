@@ -1,5 +1,7 @@
+
 {% extends "base.html" %}
-{% block title %} Login page {% endblock %}
+{% block title %} {{ student.name }} {% endblock %}
+{% block styles %} <link rel="stylesheet" href="../static/student.css"> {% endblock %}
 {% block content %}
 
 <head>
@@ -18,7 +20,7 @@
     {{ student.rp }}
    <body>
     <h1> 
-        {{ student.name }} you have {{ student.rp }} reward points!
+        {{ student.name }} has {{ student.rp }} reward points!
      </h1>
 
     <style>
@@ -80,30 +82,6 @@
         <div class="star"></div>
         <div class="star"></div>
       </div>
-
-      <style>
-
-.star:nth-child(51) {
-  --star-tail-length: {{random-tail-length}}em;
-  --top-offset: 55.05vh;
-  --fall-duration: 2.758s;
-  --fall-delay: 1.082s;
-} 
-
-.star:nth-child(52) {
-  --star-tail-length: var(--random-tail-length);
-  --top-offset: 100.05vh;
-  --fall-duration: 2.758s;
-  --fall-delay: 1.082s;
-} 
-/* fix the issue that they loop after the delay time repeatidly */
-.star:nth-child(53) {
-  --star-tail-length: var(--random-tail-length);
-  --top-offset: 20.05vh;
-  --fall-duration: 2.758s;
-  --fall-delay: 1.082s;
-} 
-      </style>
 
 
 
