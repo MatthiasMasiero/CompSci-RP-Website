@@ -18,6 +18,7 @@ teacherPassword = 314159
 
 
 class Student(db.Model):
+    # create columns
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     email = db.Column(db.String(100))
@@ -79,8 +80,7 @@ def login():
                 return redirect(url_for("login"))
         else:
             # user is not trying to log in -> display the login page
-            # return render_template("login.html")
-            return "Login page"
+            return render_template("login.html")
     
 
 # route for the register page
@@ -130,9 +130,27 @@ def register():
         else:
             # user is not trying to register
             # display the register page
-            # return render_template("register.html")
-            return "Register page"
+            return render_template("register.html")
 
+@app.route("/logout")
+def logout():
+    # first check if the user is logged in
+    if 'student' in session:
+        # log the student out
+        session.pop('student', None)
+        flash("Logged out!")
+        return redirect(url_for("login"))
+    
+    elif 'teacher' in session:
+        # log the teacher out
+        session.pop('teacher', None)
+        flash("Logged out!")
+        return redirect(url_for("login"))
+    
+    else:
+        # user is not logged in
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
 
 # route for the student view
 @app.route("/student")
@@ -169,4 +187,6 @@ def teacher():
 
 # run the app
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
