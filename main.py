@@ -108,7 +108,9 @@ def signup():
 # route for the student view
 @app.route("/student", methods=["POST", "GET"])
 def student():
-    return render_template("student.html", student=session['student'])
+    # generate a random number between 0 and 50 and add 'em' to the end
+    random_tail_length = f"{random.uniform(30, 50)}em"
+    return render_template("student.html", student=session['student'], random_tail_length=random_tail_length)
 
 # route for the teacher view
 @app.route("/teacher")
@@ -117,13 +119,8 @@ def teacher():
 
 random_number = random.randint(25, 50)
 
-# generate a random number between 0 and 500 and add 'em' to the end
-random_tail_length = f"{random.uniform(30, 50)}em"
 
-# send the random_tail_length value to the CSS using a POST request
-requests.post('http://localhost:8000/set-variable', data={'variableName': '--random-tail-length', 'variableValue': random_tail_length})
 
-print(random_tail_length)
 # run the app
 if __name__ == "__main__":
     # create the database
