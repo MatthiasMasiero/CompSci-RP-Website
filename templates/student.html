@@ -1,8 +1,6 @@
 
 {% extends "base.html" %}
 {% block title %} {{ student.name }} {% endblock %}
-% block styles %
-<link rel="stylesheet" href="{{ url_for('static', filename='student.css') }}">{% endblock %}
 {% block content %}
     
     {{ student.name }}
@@ -17,6 +15,8 @@
         {{ student.name }} has {{ student.rp }} reward points!
      </h1>
 
-    
+    <style>
+        /* PUT YOUR STYLES HERE FOR NOW IF IT WORKS, MATTHIAS */
+    </style>
     
 {% endblock %}
