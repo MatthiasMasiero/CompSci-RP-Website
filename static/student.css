@@ -276,7 +276,7 @@ body {
 }
 .star:nth-child(39) {
   --star-tail-length: 6.94em;
-  --top-offset: 82.18vh;
+  --top-offset: 130.18vh;
   --fall-duration: 6.362s;
   --fall-delay: 8.239s;
 }
@@ -294,7 +294,7 @@ body {
 }
 .star:nth-child(42) {
   --star-tail-length: 5.26em;
-  --top-offset: 88.36vh;
+  --top-offset: -13.36vh;
   --fall-duration: 8.047s;
   --fall-delay: 4.949s;
 }
@@ -336,16 +336,19 @@ body {
 }
 .star:nth-child(49) {
   --star-tail-length: 7.09em;
-  --top-offset: 54.67vh;
+  --top-offset: -10.67vh;
   --fall-duration: 7.808s;
   --fall-delay: 4.141s;
 }
 .star:nth-child(50) {
   --star-tail-length: 6.85em;
-  --top-offset: 10.05vh;
+  --top-offset: 120.05vh;
   --fall-duration: 9.258s;
   --fall-delay: 8.082s;
-}
+} 
+
+
+
 .star::before, .star::after {
   position: absolute;
   content: "";
@@ -357,9 +360,11 @@ body {
   border-radius: inherit;
   animation: blink 2s linear infinite;
 }
+
 .star::before {
   transform: rotate(45deg);
 }
+
 .star::after {
   transform: rotate(-45deg);
 }
@@ -369,6 +374,7 @@ body {
     transform: translate3d(-30em, 0, 0);
   }
 }
+
 @keyframes tail-fade {
   0%, 50% {
     width: var(--star-tail-length);
@@ -383,6 +389,7 @@ body {
     opacity: 0;
   }
 }
+
 @keyframes blink {
   50% {
     opacity: 0.6;
