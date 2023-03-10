@@ -123,6 +123,7 @@ random_tail_length = f"{random.uniform(30, 50)}em"
 # send the random_tail_length value to the CSS using a POST request
 requests.post('http://localhost:8000/set-variable', data={'variableName': '--random-tail-length', 'variableValue': random_tail_length})
 
+print(random_tail_length)
 # run the app
 if __name__ == "__main__":
     # create the database
