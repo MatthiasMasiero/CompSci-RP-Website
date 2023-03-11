@@ -53,7 +53,7 @@ class Student(db.Model):
         self.rp = 0
 
     def __repr__(self):
-        return f"{self.name} ({self.password}, {self.rp}points)"
+        return f"Name ({self.name}), Password ({self.password}), Points ({self.rp}), Email ({self.email}), Period ({self.period})\n"
     
 
 # TODO: create the send_email method for registering students
@@ -105,7 +105,7 @@ def login():
             if found_user:
                 # log the student in
                 print('logging in student')
-                session['student'] = found_user
+                session['student'] = found_user.name
                 flash("Logged in!")
                 return redirect(url_for("student"))
             
@@ -139,15 +139,20 @@ def register():
 
         # check if the user is trying to register
         if request.method == "POST":
+            session.permanent = True
+
             # user is trying to register
 
             # get the form data
-            name = request.form["name"]
-            period = request.form["period"]
-            email = request.form["email"]
+            name_in = request.form["name"]
+            period_in = request.form["period"]
+            email_in = request.form["email"]
+            session['student'] = name_in
+
+
 
             # create a new student object
-            new_student = Student(name, int(period), email)
+            new_student = Student(name_in, int(period_in), email_in)
 
             # add the new student to the database
             db.session.add(new_student)
@@ -157,12 +162,9 @@ def register():
             # # TODO: send the new student's password to their email
             # send_email(email, new_student.password)
 
-            # # add the new student to the database
-            # db.session.add(new_student)
-            # db.session.commit()
-
+            # TODO: remove automatically logging in when new student signs up
             # log the student in
-            session['student'] = new_student
+            
             print('logged in')
             print(session['student'])
 
@@ -170,6 +172,7 @@ def register():
             flash("Registered!")
             print('redirecting')
             return redirect(url_for("student"))
+
         else:
             # user is not trying to register
             # display the register page
@@ -203,7 +206,8 @@ def student():
     # first check if the student is logged in
     if 'student' in session:
         # if logged in, display the student's info
-        return render_template("student.html", student=session['student'])
+        found_student = Student.query.filter_by(name=session['student']).first()
+        return render_template("student.html", student=found_student)
     
     else:
         # user is not logged in -> login page
@@ -226,10 +230,6 @@ def teacher():
         return redirect(url_for("login"))
     
 # FOR DEVELOPMENT PURPOSES ONLY, DELETE THESE IN PRODUCTION
-# route for viewing the table
-@app.route("/view-table")
-def view_table():
-    return str(Student.query.all())
 
 # route for clearing the table
 @app.route("/clear-table")
@@ -254,6 +254,9 @@ def add_student():
 @app.route("/student-view")
 def student_view():
     return render_template("student.html", student=Student.query.first(), random_tail_length=random.randint(1, 10))
+
+
+
 
 # run the app
 if __name__ == "__main__":
