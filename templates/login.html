@@ -3,7 +3,6 @@
 
 {% block title %} Login page {% endblock %}
 
-
 {% block styles %} 
 
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -17,6 +16,7 @@
 <center>
     <h1>Mrs. Tan's Rewards Points</h1>
     
+    <!-- TODO: add a show password feature -->
     <form action="#" id="login" method="post">
         <input type="password" name="password" id="password" placeholder="Password" maxlength="6" required/>
         <br><br>

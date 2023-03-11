@@ -43,9 +43,11 @@ input {
     padding: 5px;
     margin: 5px;
 }
+
 input:invalid {
     border: 1px solid red;
     background-color: #cf1a0e19;
+    text-align: center;
     color: rgb(255, 255, 255);
 }
 

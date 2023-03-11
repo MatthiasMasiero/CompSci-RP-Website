@@ -147,9 +147,8 @@ def register():
             name_in = request.form["name"]
             period_in = request.form["period"]
             email_in = request.form["email"]
-            session['student'] = name_in
 
-
+            # TODO: make sure the email does not already exist in the database
 
             # create a new student object
             new_student = Student(name_in, int(period_in), email_in)
@@ -162,16 +161,10 @@ def register():
             # # TODO: send the new student's password to their email
             # send_email(email, new_student.password)
 
-            # TODO: remove automatically logging in when new student signs up
-            # log the student in
-            
-            print('logged in')
-            print(session['student'])
-
             # redirect to the student view
-            flash("Registered!")
-            print('redirecting')
-            return redirect(url_for("student"))
+            flash("Registered! Your password has been sent to your school email.")
+            print('redirecting to login page')
+            return redirect(url_for("login"))
 
         else:
             # user is not trying to register
@@ -207,7 +200,7 @@ def student():
     if 'student' in session:
         # if logged in, display the student's info
         found_student = Student.query.filter_by(name=session['student']).first()
-        return render_template("student.html", student=found_student)
+        return render_template("student.html", student=found_student, random_tail_length=random.randint(1, 10))
     
     else:
         # user is not logged in -> login page
