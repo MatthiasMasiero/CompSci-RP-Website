@@ -45,7 +45,7 @@ input {
 }
 
 input:invalid {
-    border: 1px solid red;
+    border: 1px solid rgb(255, 0, 0);
     background-color: #cf1a0e19;
     text-align: center;
     color: rgb(255, 255, 255);
