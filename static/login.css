@@ -31,3 +31,8 @@ input:invalid {
 input:valid {
     border: 1px solid black;
 }
+
+input[type="togglePassword"]:hover {
+    /* background-color: #50a145; */
+    background-color: rgb(10, 10, 10);
+  }

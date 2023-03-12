@@ -19,10 +19,33 @@
     <!-- TODO: add a show password feature -->
     <form action="#" id="login" method="post">
         <input type="password" name="password" id="password" placeholder="Password" maxlength="6" required/>
-        <br><br>
+
+    </form>
+
+
+    <form>
+        <button type="button" id="togglePassword">Show Password</button>
+      </form>
+      
+      <script>
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+        function togglePasswordVisibility() {
+          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+          toggleButton.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
+        }
+        
+        toggleButton.addEventListener('click', togglePasswordVisibility);
+      </script>
+      
+    <br>
+
+    <form action="#" id="login" method="post">
         <input type="submit" value="Login">
         <br><br>
     </form>
+
     
     <!-- make a sign up button that redirects the user -->
     <form action="register" id="signup" method="get">
@@ -85,5 +108,7 @@ togglePassword.addEventListener('click', function (e) {
 </script> 
 -->
 </center>
+
+
 
 {% endblock %}
