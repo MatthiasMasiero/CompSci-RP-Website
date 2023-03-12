@@ -353,15 +353,15 @@ body {
 } 
 
 
-/* 
-.form {
+
+.logoutForm {
   margin-left: auto;
   margin-right: auto;
   table-layout: fixed;
   border-collapse: collapse;
-  z-index: 1000;
+  z-index: 1;
   position:relative;
-} */
+}
 
 
 
