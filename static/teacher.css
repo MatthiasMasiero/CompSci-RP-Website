@@ -7,8 +7,15 @@ table, th, td {
     font-size: 15px;
     margin-top: 20px;
     margin-bottom: 40px;
-    /* the first column of the table is much bigger than the rest */
     width: 100%;
     table-layout: fixed;
-    
+}
+
+.search-input {
+    padding: 0.6em 1em;
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: 'Fira Sans', sans-serif;
 }

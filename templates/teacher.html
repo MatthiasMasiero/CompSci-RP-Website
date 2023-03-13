@@ -13,6 +13,8 @@
 
 {% block content %}
 
+<script src="../static/teacher.js"></script>
+
 
 <h1>Teacher View</h1>
 <h2>Welcome, Teacher!</h2>
@@ -20,23 +22,37 @@
 <!-- DISPLAY ALL STUDENT DATA IN A TABLE -->
 <!-- each student has a name, period, email, password, and rewards points -->
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Period</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Rewards Points</th>
-    </tr>
-    {% for student in students %}
-    <tr>
-        <td>{{ student.name }}</td>
-        <td>{{ student.period }}</td>
-        <td>{{ student.email }}</td>
-        <td>{{ student.password }}</td>
-        <td>{{ student.rp }}</td>
-    </tr>
-    {% endfor %}
+<table contenteditable="false">
+    <thead>
+        <tr>
+            <th>
+                <input type="text" class="search-input" placeholder="Full Name">
+            </th>
+            <th>
+                <input type="number" class="search-input" in="1" max="8" placeholder="Period #">
+            </th>
+            <th>
+                <input type="text" class="search-input" placeholder="Email">
+            </th>
+            <th>
+                <input type="text" class="search-input" placeholder="Password" >
+            </th>
+            <th>
+                <input type="text" class="search-input" placeholder="Rewards Points">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.period }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.password }}</td>
+            <td contenteditable="true">{{ student.rp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
 <form action="logout" method="get">

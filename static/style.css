@@ -5,10 +5,10 @@ center {
 }
 
 body {
-    background: linear-gradient(-45deg, #ffea05, #ff531f, #cc1eb5, #2f34c6, #56f59b, #3cf708);
-    background-size: 600% 700%;
-    animation: gradient 20s infinite;
-  }
+  background: linear-gradient(-45deg, #ffea05, #ff531f, #cc1eb5, #2f34c6, #56f59b, #3cf708);
+  background-size: 600% 700%;
+  animation: gradient 20s infinite;
+}
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -31,7 +31,7 @@ body {
 } */
 input[type="name"]::placeholder, input[type="emailAddress"]::placeholder, 
 input[type="number"]::placeholder, input[type="email"]::placeholder, 
-input[type="password"]::placeholder 
+input[type="password"]::placeholder, input[type="text"]::placeholder
 {
   text-align: center;
   color:rgba(211, 211, 211, 0.801)
