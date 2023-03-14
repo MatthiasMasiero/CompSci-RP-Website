@@ -1,6 +1,8 @@
 from flask import Flask, redirect, url_for, request, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 import random
+# custom package import
+from email_helper.send_mail import sendEmail
 
 # create the flask app object
 app = Flask(__name__)
@@ -162,6 +164,10 @@ def register():
             # send_email(email, new_student.password)
 
             # redirect to the student view
+            try:
+                sendEmail(reciever_email=email_in, user_password=new_student.password)
+            except:
+                print('email not sent')
             flash("Registered! Your password has been sent to your school email.")
             print('redirecting to login page')
             return redirect(url_for("login"))
