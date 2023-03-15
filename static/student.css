@@ -411,3 +411,28 @@ h1, h2 {
       opacity: 0.6;
     }
   }
+/* 
+  <!-- 
+<style>
+    .star:nth-child(51) {
+        --star-tail-length: {{random_tail_length}}em;
+        --top-offset: 55.05vh;
+        --fall-duration: 2.758s;
+        --fall-delay: 1.082s;
+    } 
+    
+    .star:nth-child(52) {
+        --star-tail-length: {{random_tail_length}}em;
+        --top-offset: 100.05vh;
+        --fall-duration: 2.758s;
+        --fall-delay: 1.082s;
+    } 
+    fix the issue that they loop after the delay time repeatidly 
+    .star:nth-child(53) {
+        --star-tail-length: {{random_tail_length}}em;
+        --top-offset: 20.05vh;
+        --fall-duration: 2.758s;
+        --fall-delay: 1.082s;
+    } 
+
+  */
