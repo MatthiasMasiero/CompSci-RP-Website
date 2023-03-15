@@ -411,6 +411,8 @@ h1, h2 {
       opacity: 0.6;
     }
   }
+
+  /* fix the random star length */
 /* 
   <!-- 
 <style>
