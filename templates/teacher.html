@@ -40,6 +40,9 @@
             <th>
                 <input type="text" class="search-input" placeholder="Rewards Points">
             </th>
+            <th>
+                <div class="actionheader">Actions</div>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -50,10 +53,20 @@
             <td>{{ student.email }}</td>
             <td>{{ student.password }}</td>
             <td contenteditable="true">{{ student.rp }}</td>
+            <td name="actionbuttonheader">
+                <input type="button" name="actionbutton" value="add">
+                <input type="button" name="actionbutton" value="subtract">
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<form action="#">
+    <input type="submit" value="Save Changes">
+</form>
+
+<br><br>
 
 <form action="logout" method="get">
     <input type="submit" value="Logout">

@@ -19,3 +19,11 @@ table, th, td {
     outline: none;
     font-family: 'Fira Sans', sans-serif;
 }
+
+input[name="actionbutton"] {
+    width: 50%;
+}
+
+td[name="actionbuttonheader"] {
+    width: 50%;
+}
