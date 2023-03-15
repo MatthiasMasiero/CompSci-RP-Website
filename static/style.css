@@ -55,22 +55,22 @@ input[type="password"]::placeholder, input[type="text"]::placeholder
   } */
 
   
-  input[type="submit"] {
-    background-color: rgba(255, 255, 255, 0.4);
-    color: rgb(0, 0, 0);
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  input[type="submit"]:hover {
-    /* background-color: #50a145; */
-    background-color: rgb(255, 255, 255);
-  }
+input[type="submit"] {
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  input[type="back"]:hover {
-    background-color: #b92924;
-  }
+input[type="submit"]:hover {
+  /* background-color: #50a145; */
+  background-color: rgb(255, 255, 255);
+}
+
+input[type="back"]:hover {
+  background-color: #b92924;
+}
   
 
