@@ -18,36 +18,42 @@
     
     <!-- TODO: add a show password feature -->
     <form action="#" id="login" method="post">
-        <input type="password" name="password" id="password" placeholder="Password" maxlength="6" required/>
-
+        <input type="password" name="password" id="password" placeholder="Password" maxlength="6" required/> 
+        <br>
+        <button type="button" id="togglePassword">Show Password</button>
+        <br>
+        <input type="submit" value="Login">
+        <br>
     </form>
 
 
-    <form>
+    <!-- <form>
         <button type="button" id="togglePassword">Show Password</button>
-      </form>
+      </form> -->
       
-      <script>
-        const passwordInput = document.getElementById('password');
-        const toggleButton = document.getElementById('togglePassword');
-        function togglePasswordVisibility() {
-          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-          passwordInput.setAttribute('type', type);
-          toggleButton.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
-        }
+        <script>
+          const passwordInput = document.getElementById('password');
+          const toggleButton = document.getElementById('togglePassword');
+          function togglePasswordVisibility() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            toggleButton.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
+          }
 
-        toggleButton.addEventListener('click', togglePasswordVisibility);
-      </script>
+          toggleButton.addEventListener('click', togglePasswordVisibility);
+        </script>
+     
       
       <style>
         /* Style the button */
         button#togglePassword {
           background-color: rgba(255, 255, 255, 0.4);
-          border: 1px solid rgb(0, 0, 0);
-          padding: 3px 5px;
-          margin: 5px;
-          border-radius: 5px;
+          color: rgb(0, 0, 0);
+          padding: 4px 8px;
+          border: none;
+          border-radius: 4px;
           cursor: pointer;
+          text-align: center;
         }
 
 
@@ -59,10 +65,10 @@
       
     <br>
 
-    <form action="#" id="login" method="post">
+    <!-- <form action="#" id="login" method="post">
         <input type="submit" value="Login">
         <br><br>
-    </form>
+    </form> -->
 
     
     <!-- make a sign up button that redirects the user -->
