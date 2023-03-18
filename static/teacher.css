@@ -9,21 +9,28 @@ table, th, td {
     margin-bottom: 40px;
     width: 100%;
     table-layout: fixed;
-}
-
-.search-input {
+}.search-input,
+.actionheader {
     padding: 0.6em 1em;
     width: 100%;
     background: none;
     border: none;
     outline: none;
     font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
 }
 
 input[name="actionbutton"] {
     width: 50%;
 }
 
-td[name="actionbuttonheader"] {
-    width: 50%;
+.actionheader {
+    text-align: center;
+    color: rgba(211, 211, 211, 0.801);
+}
+
+input {
+    text-align: center;
+    color: black;
+
 }

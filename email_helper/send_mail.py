@@ -11,11 +11,15 @@ def sendEmail(reciever_email, user_password):
 
     # Create the plain-text and HTML version of your message
     text = f"""
-    Hi,
-    How are you?
+    Hi, How are you?
     You're getting this email because you've registered for a Rewards Points account.
     Here's your password! Try not to lose it.
     {user_password}
+    Thanks for joining Rewards Points!
+    
+    The Rewards Points Team,
+    Matthas Masiero
+    Jaiman Munshi
     """
     html = f"""
     <html>
@@ -46,14 +50,20 @@ def sendEmail(reciever_email, user_password):
     msg.attach(part2)
 
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    server.login(sender_email, 'ilvwwjvbiyggrhpt')
-    # print('logged in to Gmail services')
+    try:
+        server.login(sender_email, 'ilvwwjvbiyggrhpt')
+        print('logged in to Gmail services')
+    except:
+        print('failed to login to Gmail services')
 
-    server.sendmail(sender_email,
-                    reciever_email,
-                    msg.as_string()
-                    )
-    # print('Email sent!')
+    try:
+        server.sendmail(sender_email,
+                        reciever_email,
+                        msg.as_string()
+                        )
+        print('Email sent!')
+    except:
+        print('Email failed to send')
 
     server.quit()
 

@@ -25,189 +25,95 @@
         <input type="submit" value="Login">
         <br>
     </form>
-
-
+    
+    
     <!-- <form>
         <button type="button" id="togglePassword">Show Password</button>
-      </form> -->
-      
-        <script>
-          const passwordInput = document.getElementById('password');
-          const toggleButton = document.getElementById('togglePassword');
-          function togglePasswordVisibility() {
+    </form> -->
+    
+    <script>
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+        function togglePasswordVisibility() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             toggleButton.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
-          }
-
-          toggleButton.addEventListener('click', togglePasswordVisibility);
-        </script>
-     
-      
-      <style>
-        /* Style the button */
-        button#togglePassword {
-          background-color: rgba(255, 255, 255, 0.4);
-          color: rgb(0, 0, 0);
-          padding: 4px 8px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          text-align: center;
         }
-
-
-
-        button#togglePassword:hover {
-          background-color: rgb(255, 255, 255);
-        }
-      </style>
-      
+        
+        toggleButton.addEventListener('click', togglePasswordVisibility);
+    </script>
+    
+    
+    
     <br>
-
+    
     <!-- <form action="#" id="login" method="post">
         <input type="submit" value="Login">
         <br><br>
     </form> -->
-
+    
     
     <!-- make a sign up button that redirects the user -->
     <form action="register" id="signup" method="get">
         <input type="submit" value="Sign Up">
     </form>
-
-    <!-- THE BELOW ARE FOR DEVELOPMENT/TESTING -->
-
-    <br>
-
-    <form action="student-view" method="get">
-        <input type="submit" value="Student View preview">
-    </form>
-
-    <br>
-
-    <form action="add-student" method="get">
-        <input type="submit" value="Add Student">
-    </form>
-
-
-
-<!-- 
-    <input type="checkbox" onclick="myFunction()">Show Password
-
-<script>
-function myFunction() {
-var x = document.getElementById("myInput");
-if (x.type === "password") {
-x.type = "text";
-} else {
-x.type = "password";
-}
-}
-
-
-
-
     
-    <form method="post">
-        Username
-        <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" required="" id="id_username">
-        Password
-        <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
-        <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
-        <button type="submit" class="btn btn-primary">Login</button>
-        </form> 
-
-<script>
-    const togglePassword = document.querySelector('#togglePassword');
-const password = document.querySelector('#id_password');
-
-togglePassword.addEventListener('click', function (e) {
-    // toggle the type attribute
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    // toggle the eye slash icon
-    this.classList.toggle('fa-eye-slash');
-    });
-</script> 
--->
-</center>
-
-<style>
-center {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
-
-body {
-  background: linear-gradient(-45deg, #ffea05, #ff531f, #cc1eb5, #2f34c6, #56f59b, #3cf708);
-  background-size: 600% 700%;
-  animation: gradient 20s infinite;
-}
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-
-
-  
-  
-/* 
-  input[type="password"]::placeholder {
-    text-align: center;
-} */
-input[type="name"]::placeholder, input[type="emailAddress"]::placeholder, 
-input[type="number"]::placeholder, input[type="email"]::placeholder, 
-input[type="password"]::placeholder, input[type="text"]::placeholder
-{
-  text-align: center;
-  color:rgba(211, 211, 211, 0.801)
-}
-
- 
-
-/* input[type="name"]:: -ms-input-placeholder {
-    text-align: center;
-} */
-
-/* input[type="period"]:: -ms-input-placeholder {
-    text-align: center;
-} */
-
-/* input[type="email"]:: -ms-input-placeholder {
-    text-align: center;
-  }
-  input[type="email"]:: -ms-input-placeholder {
-      text-align: center;
-  } */
-
-  
-input[type="submit"] {
-  background-color: rgba(255, 255, 255, 0.4);
-  color: rgb(0, 0, 0);
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type="submit"]:hover {
-  /* background-color: #50a145; */
-  background-color: rgb(255, 255, 255);
-}
-
-input[type="back"]:hover {
-  background-color: #b92924;
-}
-</style>
-
-{% endblock %}
+    <!-- THE BELOW ARE FOR DEVELOPMENT/TESTING -->
+    
+    <!-- <br>
+        
+        <form action="student-view" method="get">
+            <input type="submit" value="Student View preview">
+        </form>
+        
+        <br>
+        
+        <form action="add-student" method="get">
+            <input type="submit" value="Add Student">
+        </form> -->
+        
+        
+        
+        <!-- 
+            <input type="checkbox" onclick="myFunction()">Show Password
+            
+            <script>
+                function myFunction() {
+                    var x = document.getElementById("myInput");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+                
+                
+                
+                
+                
+                <form method="post">
+                    Username
+                    <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" required="" id="id_username">
+                    Password
+                    <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+                    <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form> 
+                
+                <script>
+                    const togglePassword = document.querySelector('#togglePassword');
+                    const password = document.querySelector('#id_password');
+                    
+                    togglePassword.addEventListener('click', function (e) {
+                        // toggle the type attribute
+                        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                        password.setAttribute('type', type);
+                        // toggle the eye slash icon
+                        this.classList.toggle('fa-eye-slash');
+                    });
+                </script> 
+            -->
+        </center>
+        
+        
+        {% endblock %}
