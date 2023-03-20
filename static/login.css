@@ -20,6 +20,7 @@ input {
     border-radius: 5px;
     padding: 5px;
     margin: 5px;
+    text-align: center;
 }
 
 input:invalid {
@@ -32,9 +33,6 @@ input:valid {
     border: 1px solid black;
 }
 
-input[type="password"] {
-    text-align: center;
-}
 
 center {
     margin: auto;
@@ -70,13 +68,7 @@ body {
   input[type="password"]::placeholder {
     text-align: center;
 } */
-input[type="name"]::placeholder,
-input[type="emailAddress"]::placeholder,
-input[type="number"]::placeholder,
-input[type="email"]::placeholder,
-input[type="password"]::placeholder,
-input[type="text"]::placeholder {
-    text-align: center;
+input[type="password"]::placeholder {
     color: rgba(211, 211, 211, 0.801)
 }
 

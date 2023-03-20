@@ -56,11 +56,6 @@ class Student(db.Model):
 
     def __repr__(self):
         return f"Name ({self.name}), Password ({self.password}), Points ({self.rp}), Email ({self.email}), Period ({self.period})\n"
-    
-
-# TODO: create the send_email method for registering students
-def send_email(email, password):
-    return None
 
 
 # route for the home page (it's just the login page)
@@ -148,9 +143,13 @@ def register():
             # get the form data
             name_in = request.form["name"]
             period_in = request.form["period"]
-            email_in = request.form["email"]
+            email_in = request.form["email"].lower()
 
-            # TODO: make sure the email does not already exist in the database
+            # make sure the email does not already exist in the database
+            emails_found = Student.query.filter_by(email=email_in).first()
+            if emails_found:
+                flash("Email already exists!")
+                return redirect(url_for("register"))
 
             # create a new student object
             new_student = Student(name_in, int(period_in), email_in)
@@ -160,14 +159,10 @@ def register():
             db.session.commit()
             print('added to database')
 
-            # # TODO: send the new student's password to their email
-            # send_email(email, new_student.password)
+            # send the new student's password to their email
+            sendEmail(reciever_email=email_in, user_password=new_student.password)
 
-            # redirect to the student view
-            try:
-                sendEmail(reciever_email=email_in, user_password=new_student.password)
-            except:
-                print('email not sent')
+
             flash("Registered! Your password has been sent to your school email.")
             print('redirecting to login page')
             return redirect(url_for("login"))
@@ -252,7 +247,7 @@ def add_student():
 # route to see the student view without logging in
 @app.route("/student-view")
 def student_view():
-    return render_template("student.html", student=Student.query.first(), random_tail_length=random.randint(1, 10))
+    return render_template("student.html", student=Student.query.first())
 
 
 

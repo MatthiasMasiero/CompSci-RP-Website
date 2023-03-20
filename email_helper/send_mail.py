@@ -51,7 +51,7 @@ def sendEmail(reciever_email, user_password):
 
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     try:
-        server.login(sender_email, 'ilvwwjvbiyggrhpt')
+        server.login(sender_email, 'zteuscrvkhxtlbbb')
         print('logged in to Gmail services')
     except:
         print('failed to login to Gmail services')

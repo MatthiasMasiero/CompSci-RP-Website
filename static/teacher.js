@@ -37,4 +37,35 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // loop through all the buttons with the class "addbutton"
+  document.querySelectorAll(".addbutton").forEach((button) => {
+    // add an event listener to each button
+    button.addEventListener("click", () => {
+      // the button is in a table cell
+      // when the button is clicked, increment the value of the 5th cell in the row
+      
+      // get the value of the 5th cell in the row
+      const cell = parseInt(button.closest("tr").querySelectorAll("td")[4].textContent);
+      // increment the value of the 5th cell in the row
+      button.closest("tr").querySelectorAll("td")[4].textContent = cell + 1;
+
+    });
+  });
+
+  // loop through all the buttons with the class "subtractbutton"
+  document.querySelectorAll(".subtractbutton").forEach((button) => {
+    // add an event listener to each button
+    button.addEventListener("click", () => {
+      // the button is in a table cell
+      // when the button is clicked, decrement the value of the 5th cell in the row
+      
+      // get the value of the 5th cell in the row
+      const cell = parseInt(button.closest("tr").querySelectorAll("td")[4].textContent);
+      // decrement the value of the 5th cell in the row
+      button.closest("tr").querySelectorAll("td")[4].textContent = cell - 1;
+
+    });
+  });
+
 });
