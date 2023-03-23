@@ -231,8 +231,25 @@ def teacher():
                 password_input = request.form[str_password]
                 rp_input = request.form[str_rp]
 
-                users[i] = [name_input, period_input, email_input, password_input, rp_input]
-            print(users)
+                users.append([name_input, period_input, email_input, password_input, rp_input])
+
+            # update the database
+            for i in range(len(users)):
+                found_user = Student.query.filter_by(password=users[i][3]).first()
+                # print("found user", found_user)
+                # print("current user from database: ", users[i])
+                found_user.name = users[i][0]
+                found_user.period = users[i][1]
+                found_user.email = users[i][2]
+                found_user.password = users[i][3]
+                found_user.rp = users[i][4]
+
+                print("new points value": found_user.rp)
+                db.session.commit()
+
+            flash("Saved!")
+            print(list(Student.query.all()))
+            return redirect(url_for("teacher"))
 
         # display the table of students
         return render_template("teacher.html", students=Student.query.all())
