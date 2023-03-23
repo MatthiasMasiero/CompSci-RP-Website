@@ -22,6 +22,7 @@
 <!-- DISPLAY ALL STUDENT DATA IN A TABLE -->
 <!-- each student has a name, period, email, password, and rewards points -->
 
+<form action="#" method="post">
 <table contenteditable="false">
     <thead>
         <tr>
@@ -39,10 +40,10 @@
             </th>
             <th>
                 <!-- <input type="text" class="search-input" placeholder="Rewards Points"> -->
-                <div class="actionheader">Rewards Points</div>
+                <div class="tableheader">Rewards Points</div>
             </th>
             <th>
-                <div class="actionheader">Actions</div>
+                <div class="tableheader">Actions</div>
             </th>
         </tr>
     </thead>
@@ -50,10 +51,20 @@
         {% for student in students %}
         <tr>
             <td>{{ student.name }}</td>
+            <input type="hidden" name="studentname{{loop.index0}}" value="{{student.name}}">
+            
             <td>{{ student.period }}</td>
+            <input type="hidden" name="studentperiod{{loop.index0}}" value="{{student.period}}">
+
             <td>{{ student.email }}</td>
+            <input type="hidden" name="studentemail{{loop.index0}}" value="{{student.email}}">
+
             <td>{{ student.password }}</td>
+            <input type="hidden" name="studentpassword{{loop.index0}}" value="{{student.password}}">
+
             <td contenteditable="true">{{ student.rp }}</td>
+            <input type="hidden" name="studentrp{{loop.index0}}" value="{{student.rp}}">
+
             <td>
                 <input class="addbutton" type="button" name="actionbutton" value="add">
                 <input class="subtractbutton" type="button" name="actionbutton" value="subtract">
@@ -63,8 +74,10 @@
     </tbody>
 </table>
 
-<form action="#">
-    <input type="submit" value="Save Changes">
+<!-- POTENTIAL SOLUTION FOR SAVE CHANGES FUNCTIONALITY: -->
+<!-- https://stackoverflow.com/questions/51803008/send-table-data-via-form-to-flask-method -->
+
+<input type="submit" value="Save Changes">
 </form>
 
 <br><br>

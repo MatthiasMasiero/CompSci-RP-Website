@@ -210,12 +210,31 @@ def student():
 
 
 # route for the teacher view
-@app.route("/teacher")
-@app.route("/t")
+@app.route("/teacher", methods=["POST", "GET"])
+@app.route("/t", methods=["POST", "GET"])
 def teacher():
     # first check if the teacher is logged in
     if 'teacher' in session:
-        # if logged in, display the table of students
+        # if logged in, first check if the save button was pressed
+        if request.method == "POST":
+            users = []
+            for i in range(len(Student.query.all())):
+                str_name = "studentname" + str(i)
+                str_period = "studentperiod" + str(i)
+                str_email = "studentemail" + str(i)
+                str_password = "studentpassword" + str(i)
+                str_rp = "studentrp" + str(i)
+
+                name_input = request.form[str_name]
+                period_input = request.form[str_period]
+                email_input = request.form[str_email]
+                password_input = request.form[str_password]
+                rp_input = request.form[str_rp]
+
+                users[i] = [name_input, period_input, email_input, password_input, rp_input]
+            print(users)
+
+        # display the table of students
         return render_template("teacher.html", students=Student.query.all())
     
     else:
@@ -256,6 +275,9 @@ def student_view():
 if __name__ == "__main__":
     with app.app_context():
         print('Creating Database...')
+        # TODO: Uncomment this line in production
         db.drop_all()
         db.create_all()
+        for i in range(3):
+            add_student()
     app.run(debug=True)
