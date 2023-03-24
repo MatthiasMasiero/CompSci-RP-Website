@@ -36,3 +36,21 @@ input {
     color: black;
 
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button,
+input[type=number] {
+    -webkit-appearance: none;
+    margin: 0;
+    background: none;
+    border:none;
+    font-size: large;
+    font-weight: bold;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+    background: none;
+}

@@ -225,30 +225,42 @@ def teacher():
                 str_password = "studentpassword" + str(i)
                 str_rp = "studentrp" + str(i)
 
+                # print(str_rp)
+
                 name_input = request.form[str_name]
                 period_input = request.form[str_period]
                 email_input = request.form[str_email]
                 password_input = request.form[str_password]
                 rp_input = request.form[str_rp]
 
+                # print(f"points entered for user {i}: {rp_input}")
+
+                
+
                 users.append([name_input, period_input, email_input, password_input, rp_input])
+            
+            # print(users)
 
             # update the database
             for i in range(len(users)):
+                # TODO: change the filter to use email for deployment
                 found_user = Student.query.filter_by(password=users[i][3]).first()
-                # print("found user", found_user)
-                # print("current user from database: ", users[i])
-                found_user.name = users[i][0]
-                found_user.period = users[i][1]
-                found_user.email = users[i][2]
-                found_user.password = users[i][3]
+                # print(f"points entered for user {i}: {users[i][4]}")
+                # print("found user from database", found_user)
+                # print("current user from the table: ", users[i])
+
+                # found_user.name = users[i][0]
+                # found_user.period = users[i][1]
+                # found_user.email = users[i][2]
+                # found_user.password = users[i][3]
                 found_user.rp = users[i][4]
 
-                print("new points value": found_user.rp)
+
+                # print("new points value", found_user.rp)
                 db.session.commit()
 
             flash("Saved!")
-            print(list(Student.query.all()))
+            # print(list(Student.query.all()))
             return redirect(url_for("teacher"))
 
         # display the table of students

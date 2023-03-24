@@ -62,8 +62,8 @@
             <td>{{ student.password }}</td>
             <input type="hidden" name="studentpassword{{loop.index0}}" value="{{student.password}}">
 
-            <td contenteditable="true">{{ student.rp }}</td>
-            <input type="hidden" name="studentrp{{loop.index0}}" value="{{student.rp}}">
+            <!-- TODO: style this input tag -->
+            <td><input type="number" name="studentrp{{loop.index0}}" value="{{student.rp}}"></td>
 
             <td>
                 <input class="addbutton" type="button" name="actionbutton" value="add">

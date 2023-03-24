@@ -46,9 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // when the button is clicked, increment the value of the 5th cell in the row
       
       // get the value of the 5th cell in the row
-      const cell = parseInt(button.closest("tr").querySelectorAll("td")[4].textContent);
+      const cell = parseInt(
+        button.closest("tr").querySelectorAll("td")[4].querySelector("input")
+          .value
+      );
       // increment the value of the 5th cell in the row
-      button.closest("tr").querySelectorAll("td")[4].textContent = cell + 1;
+      button.closest("tr").querySelectorAll("td")[4].querySelector("input").value = cell + 1;
 
     });
   });
@@ -61,9 +64,15 @@ document.addEventListener("DOMContentLoaded", () => {
       // when the button is clicked, decrement the value of the 5th cell in the row
       
       // get the value of the 5th cell in the row
-      const cell = parseInt(button.closest("tr").querySelectorAll("td")[4].textContent);
-      // decrement the value of the 5th cell in the row
-      button.closest("tr").querySelectorAll("td")[4].textContent = cell - 1;
+      const cell = parseInt(
+        button.closest("tr").querySelectorAll("td")[4].querySelector("input")
+          .value
+      );
+      // increment the value of the 5th cell in the row
+      button
+        .closest("tr")
+        .querySelectorAll("td")[4]
+        .querySelector("input").value = cell - 1;
 
     });
   });
