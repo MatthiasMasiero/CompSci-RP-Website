@@ -231,6 +231,7 @@ def teacher():
                 period_input = request.form[str_period]
                 email_input = request.form[str_email]
                 password_input = request.form[str_password]
+
                 rp_input = request.form[str_rp]
 
                 # print(f"points entered for user {i}: {rp_input}")
@@ -249,6 +250,7 @@ def teacher():
                 # print("found user from database", found_user)
                 # print("current user from the table: ", users[i])
 
+                # IF YOU MAKE ALL TABLE CELLS INTO INPUTS, UNCOMMENT THIS
                 # found_user.name = users[i][0]
                 # found_user.period = users[i][1]
                 # found_user.email = users[i][2]
@@ -265,7 +267,7 @@ def teacher():
 
         # display the table of students
         return render_template("teacher.html", students=Student.query.all())
-    
+
     else:
         # user is not logged in -> login page
         flash("You are not logged in!")

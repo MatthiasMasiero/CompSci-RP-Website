@@ -26,7 +26,7 @@ input[name="actionbutton"] {
     width: 50%;
 }
 
-.actionheader {
+.tableheader {
     text-align: center;
     color: rgba(211, 211, 211, 0.801);
 }
@@ -53,4 +53,9 @@ input[type=number] {
 input[type=number] {
     -moz-appearance: textfield;
     background: none;
+}
+
+#periodTableHeader {
+    font-weight: 100;
+    font-size: 15px;
 }
