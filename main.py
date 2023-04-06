@@ -57,6 +57,7 @@ class Student(db.Model):
         return f"Name ({self.name}), Password ({self.password}), Points ({self.rp}), Email ({self.email}), Period ({self.period})\n"
 
 # TODO: add a forgot password approute that asks for the student's email and sends them their password
+# TODO: add a show password button to the password column in teacher view
 
 # route for the home page (it's just the login page)
 @app.route("/", methods=["POST", "GET"])
@@ -267,8 +268,8 @@ def teacher():
                 # LOGIC FOR VALIDATING NEW PASSWORD:
                 # 1. check if the password has been changed/edited
                 # 2. make sure password is made up of only numbers
-                # 3. make sure password is a 6 digit number (leading zeroes allowed)
-                #   3a. TODO: check if it has leading zeroes that would make it a 6 digit number when removed (ex: 0000000000012 -> 000012, 000123456 -> 123456)
+                # 3. make sure password is a 6 digit number (leading zeroes allowed like 000123)
+                #   3a. TODO: (maybe) check if it has leading zeroes that would make it a 6 digit number when removed (ex: 0000000000012 -> 000012, 000123456 -> 123456)
                 #   3b. if it's less than 6 digits, add leading zeroes
                 # 4. make sure password is unique (doesn't already belong to another student)
 
@@ -367,6 +368,7 @@ if __name__ == "__main__":
         # TODO: Uncomment this line in production
         db.drop_all()
         db.create_all()
+        # TODO: Comment this loop in production
         for i in range(3):
             add_student()
     app.run(debug=True)
