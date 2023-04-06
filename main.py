@@ -219,50 +219,108 @@ def teacher():
         if request.method == "POST":
             users = []
             for i in range(len(Student.query.all())):
+                str_id = "studentid" + str(i)
                 str_name = "studentname" + str(i)
                 str_period = "studentperiod" + str(i)
                 str_email = "studentemail" + str(i)
                 str_password = "studentpassword" + str(i)
                 str_rp = "studentrp" + str(i)
 
-                # print(str_rp)
+
+                id_input = request.form[str_id]
+
 
                 name_input = request.form[str_name]
-                period_input = request.form[str_period]
-                email_input = request.form[str_email]
-                password_input = request.form[str_password]
 
-                rp_input = request.form[str_rp]
 
-                # print(f"points entered for user {i}: {rp_input}")
-
+                try:
+                    period_input = int(request.form[str_period])
+                except:
+                    # someone put an "e" in the period input (we don't know how to prevent them from doing it)
+                    flash(f"Please enter a valid period number for {name_input} (id: {id_input})")
+                    return redirect(url_for("teacher"))
+                
+                # make sure period is a number between 1 and 8, inclusive
+                if period_input < 1 or period_input > 8:
+                    flash(f"Please enter a valid period number for {name_input} (id: {id_input})")
+                    return redirect(url_for("teacher"))
                 
 
-                users.append([name_input, period_input, email_input, password_input, rp_input])
+                email_input = request.form[str_email]
+
+                # first check if the email has been changed/edited
+                if email_input != Student.query.filter_by(_id=id_input).first().email:
+                    # make sure email is unique
+                    emails_found = Student.query.filter_by(email=email_input).first()
+                    if emails_found and emails_found._id != id_input: # also making sure the matching email is not the same student
+                        flash(f"The email you're trying to change for {name_input} (id: {id_input}) is already taken by {emails_found.name} (id: {emails_found._id})")
+                        return redirect(url_for("teacher"))
+                    
+                    # make sure email is valid
+                    # for now, just checking if it's empty
+                    if email_input == "":
+                        flash(f"Please enter a valid email for {name_input} (id: {id_input})")
+                        return redirect(url_for("teacher"))
+                    
+
+                password_input = request.form[str_password]
+                # LOGIC FOR VALIDATING NEW PASSWORD:
+                # 1. check if the password has been changed/edited
+                # 2. make sure password is made up of only numbers
+                # 3. make sure password is a 6 digit number (leading zeroes allowed)
+                #   3a. TODO: check if it has leading zeroes that would make it a 6 digit number when removed (ex: 0000000000012 -> 000012, 000123456 -> 123456)
+                #   3b. if it's less than 6 digits, add leading zeroes
+                # 4. make sure password is unique (doesn't already belong to another student)
+
+
+                # first check if the password has been changed/edited
+                if password_input != Student.query.filter_by(_id=id_input).first().password:
+                    # make sure password is a 6 digit number (leading zeroes allowed)
+                    if not password_input.isdigit() or len(password_input) != 6:
+                        # check if it has leading zeroes that would make it a 6 digit number when removed
+                        if len(password_input.lstrip('0')) == 6:
+                            password_input = password_input.lstrip('0')
+                        if len(password_input) < 6:
+                            # add leading zeroes, then continue
+                            password_input = password_input.zfill(6)
+                        else:
+                            flash(f"Please enter a valid password for {name_input} (id: {id_input})")
+                            return redirect(url_for("teacher"))
+                        
+                    # make sure password is unique
+                    passwords_found = Student.query.filter_by(password=password_input).first()
+                    if passwords_found and passwords_found._id != id_input:
+                        flash(f"The password you're trying to change for {name_input} (id: {id_input}) is already taken by {passwords_found.name} (id: {passwords_found._id})")
+                        return redirect(url_for("teacher"))
+
+
+                try:
+                    rp_input = int(request.form[str_rp])
+                except:
+                    # someone put an "e" in the rp input (we don't know how to prevent them from doing it)
+                    flash(f"Please enter a valid number of RP for {name_input} (id: {id_input})")
+                    return redirect(url_for("teacher"))
+
+
+                users.append([id_input, name_input, period_input, email_input, password_input, rp_input])
             
-            # print(users)
 
             # update the database
             for i in range(len(users)):
-                # TODO: change the filter to use email for deployment
-                found_user = Student.query.filter_by(password=users[i][3]).first()
-                # print(f"points entered for user {i}: {users[i][4]}")
-                # print("found user from database", found_user)
-                # print("current user from the table: ", users[i])
+                # using the id for the filter because that can't be changed
+                found_user = Student.query.filter_by(_id=users[i][0]).first()
 
                 # IF YOU MAKE ALL TABLE CELLS INTO INPUTS, UNCOMMENT THIS
-                # found_user.name = users[i][0]
-                # found_user.period = users[i][1]
-                # found_user.email = users[i][2]
-                # found_user.password = users[i][3]
-                found_user.rp = users[i][4]
+                found_user.name = users[i][1]
+                found_user.period = users[i][2]
+                found_user.email = users[i][3]
+                found_user.password = users[i][4]
+                found_user.rp = users[i][5]
 
 
-                # print("new points value", found_user.rp)
                 db.session.commit()
 
             flash("Saved!")
-            # print(list(Student.query.all()))
             return redirect(url_for("teacher"))
 
         # display the table of students

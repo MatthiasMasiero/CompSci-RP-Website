@@ -27,10 +27,14 @@
     <thead>
         <tr>
             <th>
+                <!-- <div class="tableheader">ID</div> -->
+                <input type="number" class="search-input" placeholder="ID">
+            </th>
+            <th>
                 <input type="text" class="search-input" placeholder="Full Name">
             </th>
             <th>
-                <input type="number" class="search-input" in="1" max="8" placeholder="Period #" id="periodTableHeader">
+                <input type="number" class="search-input" placeholder="Period #" id="periodTableHeader">
             </th>
             <th>
                 <input type="text" class="search-input" placeholder="Email">
@@ -50,20 +54,35 @@
     <tbody>
         {% for student in students %}
         <tr>
-            <td>{{ student.name }}</td>
-            <input type="hidden" name="studentname{{loop.index0}}" value="{{student.name}}">
+            <td>
+                <input class="tableinput" type="hidden" name="studentid{{loop.index0}}" value="{{student._id}}">
+                {{ student._id }}
+            </td>
+
+            <td>
+                <!-- {{ student.name }} -->
+                <input class="tableinput" type="text" name="studentname{{loop.index0}}" value="{{student.name}}">
+            </td>
             
-            <td>{{ student.period }}</td>
-            <input type="hidden" name="studentperiod{{loop.index0}}" value="{{student.period}}">
+            <td>
+                <!-- {{ student.period }} -->
+                <input class="tableinput" type="number" name="studentperiod{{loop.index0}}" value="{{student.period}}">
+            </td>
 
-            <td>{{ student.email }}</td>
-            <input type="hidden" name="studentemail{{loop.index0}}" value="{{student.email}}">
+            <td>
+                <!-- {{ student.email }} -->
+                <input class="tableinput" type="text" name="studentemail{{loop.index0}}" value="{{student.email}}">
+            </td>
 
-            <td>{{ student.password }}</td>
-            <input type="hidden" name="studentpassword{{loop.index0}}" value="{{student.password}}">
+            <td>
+                <!-- {{ student.password }} -->
+                <input class="tableinput" type="number" name="studentpassword{{loop.index0}}" value="{{student.password}}" >
+            </td>
 
             <!-- TODO: style this input tag -->
-            <td><input type="number" name="studentrp{{loop.index0}}" value="{{student.rp}}"></td>
+            <td>
+                <!-- {{student.rp}} -->
+                <input type="number" name="studentrp{{loop.index0}}" value="{{student.rp}}"></td>
 
             <td>
                 <input class="addbutton" type="button" name="actionbutton" value="add">

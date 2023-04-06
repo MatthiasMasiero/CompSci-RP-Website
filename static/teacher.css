@@ -1,7 +1,7 @@
 /* give tables inner borders and padding */
 table, th, td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
     border-collapse: collapse;
     font-size: 15px;
@@ -9,17 +9,18 @@ table, th, td {
     margin-bottom: 40px;
     width: 100%;
     table-layout: fixed;
+    font-weight: bold;
 }
 
 .search-input,
-.tableheader {
+.tableheader, .tableinput {
     padding: 0.6em 1em;
     width: 100%;
     background: none;
     border: none;
     outline: none;
     font-family: 'Fira Sans', sans-serif;
-    font-weight: 100;
+    font-weight: bold;
 }
 
 input[name="actionbutton"] {
@@ -56,6 +57,5 @@ input[type=number] {
 }
 
 #periodTableHeader {
-    font-weight: 100;
     font-size: 15px;
 }
