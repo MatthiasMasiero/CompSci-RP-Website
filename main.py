@@ -325,14 +325,34 @@ def teacher():
             return redirect(url_for("teacher"))
 
         # display the table of students
-        return render_template("teacher.html", students=Student.query.all())
+        # sort the students by period, then name when you pass it to the html
+        return render_template("teacher.html", students=Student.query.order_by(Student.period, Student.name).all())
 
     else:
         # user is not logged in -> login page
         flash("You are not logged in!")
         return redirect(url_for("login"))
     
-# FOR DEVELOPMENT PURPOSES ONLY, DELETE THESE IN PRODUCTION
+@app.route("/forgotpassword", methods=["GET", "POST"])
+@app.route("/forgot", methods=["GET", "POST"])
+def forgotpassword():
+    if request.method == "POST":
+        # get the email from the form
+        email_in = request.form["email"]
+
+        # make sure the email exists in the database
+        user_found = Student.query.filter_by(email=email_in).first()
+        if user_found:
+            # send the user an email containing their password
+            sendEmail(reciever_email=email_in, user_password=email_found.password, forgot_password=True)
+        else:
+            flash("The email you entered is not registered!")
+            return redirect(url_for("register"))
+
+    else:
+        return render_template("forgotpassword.html")
+    
+# FOR DEVELOPMENT PURPOSES ONLY, DELETE/COMMENT THESE IN PRODUCTION
 
 # route for clearing the table
 @app.route("/clear-table")
