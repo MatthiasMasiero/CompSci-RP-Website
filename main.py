@@ -18,7 +18,6 @@ db = SQLAlchemy(app)
 
 teacherPassword = '314159'
 
-
 class Student(db.Model):
     # create columns
     _id = db.Column("id", db.Integer, primary_key=True)
@@ -57,6 +56,7 @@ class Student(db.Model):
     def __repr__(self):
         return f"Name ({self.name}), Password ({self.password}), Points ({self.rp}), Email ({self.email}), Period ({self.period})\n"
 
+# TODO: add a forgot password approute that asks for the student's email and sends them their password
 
 # route for the home page (it's just the login page)
 @app.route("/", methods=["POST", "GET"])
