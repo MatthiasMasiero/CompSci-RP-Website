@@ -56,7 +56,6 @@ class Student(db.Model):
     def __repr__(self):
         return f"Name ({self.name}), Password ({self.password}), Points ({self.rp}), Email ({self.email}), Period ({self.period})\n"
 
-# TODO: add a forgot password approute that asks for the student's email and sends them their password
 # TODO: add a show password button to the password column in teacher view
 
 # route for the home page (it's just the login page)
@@ -104,7 +103,7 @@ def login():
                 # log the student in
                 print('logging in student')
                 session['student'] = found_user.name
-                flash("Logged in!")
+                # flash("Logged in!")
                 return redirect(url_for("student"))
             
             # if password not found, display an error message
@@ -267,33 +266,25 @@ def teacher():
                 password_input = request.form[str_password]
                 # LOGIC FOR VALIDATING NEW PASSWORD:
                 # 1. check if the password has been changed/edited
-                # 2. make sure password is made up of only numbers
-                # 3. make sure password is a 6 digit number (leading zeroes allowed like 000123)
-                #   3a. TODO: (maybe) check if it has leading zeroes that would make it a 6 digit number when removed (ex: 0000000000012 -> 000012, 000123456 -> 123456)
-                #   3b. if it's less than 6 digits, add leading zeroes
-                # 4. make sure password is unique (doesn't already belong to another student)
-
-
-                # first check if the password has been changed/edited
                 if password_input != Student.query.filter_by(_id=id_input).first().password:
-                    # make sure password is a 6 digit number (leading zeroes allowed)
-                    if not password_input.isdigit() or len(password_input) != 6:
-                        # check if it has leading zeroes that would make it a 6 digit number when removed
-                        if len(password_input.lstrip('0')) == 6:
-                            password_input = password_input.lstrip('0')
-                        if len(password_input) < 6:
-                            # add leading zeroes, then continue
-                            password_input = password_input.zfill(6)
-                        else:
-                            flash(f"Please enter a valid password for {name_input} (id: {id_input})")
-                            return redirect(url_for("teacher"))
-                        
-                    # make sure password is unique
-                    passwords_found = Student.query.filter_by(password=password_input).first()
-                    if passwords_found and passwords_found._id != id_input:
-                        flash(f"The password you're trying to change for {name_input} (id: {id_input}) is already taken by {passwords_found.name} (id: {passwords_found._id})")
+                # 2. make sure password is made up of only numbers
+                    if not password_input.isdigit():
+                        flash(f"Please enter a valid password for {name_input} (id: {id_input})")
                         return redirect(url_for("teacher"))
-
+                # 3. remove leading zeroes
+                    password_input = str(int(password_input))
+                # 4. make sure password is 6 digits or less
+                    if len(password_input) > 6:
+                        flash(f"Please enter a valid password for {name_input} (id: {id_input})")
+                        return redirect(url_for("teacher"))
+                # 4a. if it's less than 6 digits, add leading zeroes
+                    if len(password_input) < 6:
+                        password_input = password_input.zfill(6)
+                # 5. make sure password is unique (doesn't already belong to another student)
+                    password_found = Student.query.filter_by(password=password_input).first()
+                    if password_found and password_found._id != id_input: # also making sure the matching password is not the same student
+                        flash(f"The password you're trying to change for {name_input} (id: {id_input}) is already taken by {password_found.name} (id: {password_found._id})")
+                        return redirect(url_for("teacher"))
 
                 try:
                     rp_input = int(request.form[str_rp])

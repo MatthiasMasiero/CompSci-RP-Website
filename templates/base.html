@@ -62,13 +62,14 @@
     <!-- make the flash message fade out after a time -->
     <script>
         // get the length of the message
-        var msglength = document.getElementById("flashmessage").innerHTML.length;
-        // set the timeout to be proportional to the length of the message
-        // but if it's too short, set it to 3 seconds
-        var timeout = Math.max(msglength * 100, 3000);
+        var flashMessageLength = document.getElementById("flash-message").innerHTML.length;
+        // set the timeout to be the length of the message times 100ms
+        // or 3 seconds if the message is too short
+        var timeout = Math.max(flashMessageLength * 100, 3000);
         setTimeout(function () {
-            $(".alert").alert('close');
-        }, timeout); // 110ms per character
+            $('.alert').alert('close');
+        }, timeout);
+
     </script>
     <!-- end flash messages -->
 
