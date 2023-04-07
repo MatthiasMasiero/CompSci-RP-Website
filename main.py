@@ -161,7 +161,7 @@ def register():
             print('added to database')
 
             # send the new student's password to their email
-            sendEmail(reciever_email=email_in, user_password=new_student.password)
+            sendEmail(reciever_email=email_in, user_password=new_student.password, forgot_password=False)
 
 
             flash("Registered! Your password has been sent to your school email.")
@@ -344,10 +344,12 @@ def forgotpassword():
         user_found = Student.query.filter_by(email=email_in).first()
         if user_found:
             # send the user an email containing their password
-            sendEmail(reciever_email=email_in, user_password=email_found.password, forgot_password=True)
+            sendEmail(reciever_email=email_in, user_password=user_found.password, forgot_password=True)
+            flash("An email containing your password has been sent to you!")
+            return redirect(url_for("login"))
         else:
             flash("The email you entered is not registered!")
-            return redirect(url_for("register"))
+            return redirect(url_for("forgotpassword"))
 
     else:
         return render_template("forgotpassword.html")

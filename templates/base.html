@@ -45,14 +45,13 @@
 
 
     <!-- flash messages -->
-
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
             <center>
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    {{ msg }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <div class="alert alert-info alert-dismissible fade show" role="alert" id="flash-container">
+                    <p id="flash-message">{{ msg }}</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="flash-closebutton">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -60,7 +59,17 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-
+    <!-- make the flash message fade out after a time -->
+    <script>
+        // get the length of the message
+        var msglength = document.getElementById("flashmessage").innerHTML.length;
+        // set the timeout to be proportional to the length of the message
+        // but if it's too short, set it to 3 seconds
+        var timeout = Math.max(msglength * 100, 3000);
+        setTimeout(function () {
+            $(".alert").alert('close');
+        }, timeout); // 110ms per character
+    </script>
     <!-- end flash messages -->
 
     

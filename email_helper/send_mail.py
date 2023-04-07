@@ -29,7 +29,7 @@ def sendEmail(reciever_email, user_password, forgot_password):
             <h2>Hi,
                 How are you?<br>
             </h2>
-            <h3>YYou're getting this email because you've forggoten your password to your Rewards Points account.<br>
+            <h3>You're getting this email because you've forggoten your password to your Rewards Points account.<br><br>
                 Here's your password! Try not to lose it again.<br></h3>
             <h2>{user_password}</h2>
 
@@ -59,7 +59,7 @@ def sendEmail(reciever_email, user_password, forgot_password):
             <h2>Hi,
                 How are you?<br>
             </h2>
-            <h3>You're getting this email because you've registered for a Rewards Points account.<br>
+            <h3>You're getting this email because you've registered for a Rewards Points account.<br><br>
                 Here's your password! Try not to lose it.<br></h3>
             <h2>{user_password}</h2>
 

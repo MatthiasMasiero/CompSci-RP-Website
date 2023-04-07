@@ -21,9 +21,19 @@ body {
   }
 }
 
+#flash-message, #flash-closebutton {
+  padding: 1px;
+  margin: 1px;
+}
 
-
-  
+#flash-container {
+  /* this is appearing to the left of the other body elements, make it appear at the top of the screen */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
   
 /* 
   input[type="password"]::placeholder {
