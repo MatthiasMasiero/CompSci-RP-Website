@@ -208,7 +208,6 @@ def student():
         flash("You are not logged in!")
         return redirect(url_for("login"))
 
-
 # route for the teacher view
 @app.route("/teacher", methods=["POST", "GET"])
 @app.route("/t", methods=["POST", "GET"])
@@ -317,7 +316,7 @@ def teacher():
 
         # display the table of students
         # sort the students by period, then name when you pass it to the html
-        return render_template("teacher.html", students=Student.query.order_by(Student.period, Student.name).all())
+        return render_template("teacher.html", students=Student.query.order_by(Student._id).all())
 
     else:
         # user is not logged in -> login page
@@ -344,33 +343,84 @@ def forgotpassword():
 
     else:
         return render_template("forgotpassword.html")
-    
-# FOR DEVELOPMENT PURPOSES ONLY, DELETE/COMMENT THESE IN PRODUCTION
 
-# route for clearing the table
-@app.route("/clear-table")
-def clear_table():
-    # clear the database
-    db.drop_all()
-    return "Table cleared!"
+@app.route("/delete-student", methods=["POST", "GET"])
+def delete_student():
+    if 'teacher' in session:
+        if request.method == "POST":
+            # get the student id from the form
+            student_id = request.form["studentid"]
+
+            # delete the student from the database
+            Student.query.filter_by(_id=student_id).delete()
+            db.session.commit()
+            flash("Student deleted!")
+        return redirect(url_for("teacher"))
+    else:
+        # user is not logged in -> login page
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
 
 # route for adding a student to the table
-@app.route("/add-student")
-def add_student():
-    # create a new student object
-    new_student = Student('name', 7, '123@mail.com')
+@app.route("/add-student", methods=["POST", "GET"])
+def add_student(npc=False):
+    if npc:
+        # create a new student object
+        new_student = Student('name', 7, '123@mail.com')
 
-    # add the new student to the database
-    db.session.add(new_student)
-    db.session.commit()
+        # add the new student to the database
+        db.session.add(new_student)
+        db.session.commit()
 
-    return "Student added!"
+        print("Npc added!")
+    else:
+        if 'teacher' in session:
+            # get the form data
+            name_in = request.form["name"]
+            period_in = request.form["period"]
+            email_in = request.form["email"].lower()
+            send_email_toggle_in = request.form["sendEmailToggle"]
+
+            # make sure the email does not already exist in the database
+            emails_found = Student.query.filter_by(email=email_in).first()
+            if emails_found:
+                flash("Email already exists!")
+                return redirect(url_for("teacher"))
+
+            # create a new student object
+            new_student = Student(name_in, int(period_in), email_in)
+
+            # add the new student to the database
+            db.session.add(new_student)
+            db.session.commit()
+            print('added to database')
+
+            if send_email_toggle_in:
+                # send the new student's password to their email
+                sendEmail(reciever_email=email_in, user_password=new_student.password, forgot_password=False)
+
+
+            flash("Added new student.")
+            return redirect(url_for("teacher"))
+        elif 'student' in session:
+            return redirect(url_for("student"))
+        else:
+            # user is not logged in -> login page
+            flash("You are not logged in!")
+            return redirect(url_for("login"))
 
 # route to see the student view without logging in
 @app.route("/student-view")
 def student_view():
     return render_template("student.html", student=Student.query.first())
 
+# FOR DEVELOPMENT PURPOSES ONLY
+# route for clearing the table
+@app.route("/clear-table")
+def clear_table():
+    # clear the database
+    db.drop_all()
+    return "Table cleared!"
 
 
 
@@ -383,5 +433,5 @@ if __name__ == "__main__":
         db.create_all()
         # TODO: Comment this loop in production
         for i in range(3):
-            add_student()
+            add_student(npc=True)
     app.run(debug=True)
