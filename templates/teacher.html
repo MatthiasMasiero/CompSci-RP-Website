@@ -102,7 +102,7 @@
 
 <br><br>
 
-<form action="add-student" method="post">
+<form action="addstudent" method="post">
     <input class="add-student" type="name" name="name" id="name" placeholder="Name"required />
     <br><br>
     <input class="add-student" type="number" name="period" min="1" max="8" id="period" placeholder="Period #"required />
@@ -116,8 +116,8 @@
 <style>
     .add-student {
         background-color: #cf1a0e19;
-        color: white;
-        border: 1px solid white;
+        /* color: white; */
+        /* border: 1px solid white; */
         border-radius: 5px;
         padding: 5px;
         margin: 5px;
@@ -186,8 +186,8 @@
 
 <br><br>
 
-<form action="delete-student" method="post">
-    <input type="number" name="studentid" placeholder="Student ID">
+<form action="deletestudent" method="post">
+    <input type="number" name="studentid" placeholder="Student ID" required>
     <input type="submit" value="Delete Student">
 </form>
 

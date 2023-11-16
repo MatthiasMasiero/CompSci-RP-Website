@@ -59,3 +59,31 @@ input[type=number] {
 #periodTableHeader {
     font-size: 15px;
 }
+
+
+#name:valid {
+    background-color: #33db3990;
+    color: black;
+}
+
+#period:valid {
+    background-color: #33db3990;
+    color: black;
+}
+
+#email:valid {
+    background-color: #33db3990;
+    color: black;
+}
+
+#name {
+    width: 200px;
+}
+
+#period {
+    width: 200px;
+}
+
+#email {
+    width: 200px;
+}

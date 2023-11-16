@@ -344,8 +344,8 @@ def forgotpassword():
     else:
         return render_template("forgotpassword.html")
 
-@app.route("/delete-student", methods=["POST", "GET"])
-def delete_student():
+@app.route("/deletestudent", methods=["POST", "GET"])
+def deletestudent():
     if 'teacher' in session:
         if request.method == "POST":
             # get the student id from the form
@@ -362,52 +362,42 @@ def delete_student():
         return redirect(url_for("login"))
 
 # route for adding a student to the table
-@app.route("/add-student", methods=["POST", "GET"])
-def add_student(npc=False):
-    if npc:
-        # create a new student object
-        new_student = Student('name', 7, '123@mail.com')
+@app.route("/addstudent", methods=["POST", "GET"])
+def addstudent():
+		if 'teacher' in session:
+				# get the form data
+				name_in = request.form["name"]
+				period_in = request.form["period"]
+				email_in = request.form["email"].lower()
+				send_email_toggle_in = request.form.get("sendEmailToggle")
 
-        # add the new student to the database
-        db.session.add(new_student)
-        db.session.commit()
+				# make sure the email does not already exist in the database
+				emails_found = Student.query.filter_by(email=email_in).first()
+				if emails_found:
+						flash("Email already exists!")
+						return redirect(url_for("teacher"))
 
-        print("Npc added!")
-    else:
-        if 'teacher' in session:
-            # get the form data
-            name_in = request.form["name"]
-            period_in = request.form["period"]
-            email_in = request.form["email"].lower()
-            send_email_toggle_in = request.form["sendEmailToggle"]
+				# create a new student object
+				new_student = Student(name_in, int(period_in), email_in)
 
-            # make sure the email does not already exist in the database
-            emails_found = Student.query.filter_by(email=email_in).first()
-            if emails_found:
-                flash("Email already exists!")
-                return redirect(url_for("teacher"))
+				# add the new student to the database
+				db.session.add(new_student)
+				db.session.commit()
+				print('added to database')
 
-            # create a new student object
-            new_student = Student(name_in, int(period_in), email_in)
-
-            # add the new student to the database
-            db.session.add(new_student)
-            db.session.commit()
-            print('added to database')
-
-            if send_email_toggle_in:
-                # send the new student's password to their email
-                sendEmail(reciever_email=email_in, user_password=new_student.password, forgot_password=False)
+				if send_email_toggle_in:
+						# send the new student's password to their email
+						sendEmail(reciever_email=email_in, user_password=new_student.password, forgot_password=False)
 
 
-            flash("Added new student.")
-            return redirect(url_for("teacher"))
-        elif 'student' in session:
-            return redirect(url_for("student"))
-        else:
-            # user is not logged in -> login page
-            flash("You are not logged in!")
-            return redirect(url_for("login"))
+				flash("Added new student.")
+				return redirect(url_for("teacher"))
+		elif 'student' in session:
+				return redirect(url_for("student"))
+		else:
+				# user is not logged in -> login page
+				flash("You are not logged in!")
+				return redirect(url_for("login"))
 
 # route to see the student view without logging in
 @app.route("/student-view")
@@ -422,16 +412,25 @@ def clear_table():
     db.drop_all()
     return "Table cleared!"
 
+def add_npcs():
+		for i in range(3):
+				# create a new student object
+				new_student = Student('name', 7, '123@mail.com')
+	
+				# add the new student to the database
+				db.session.add(new_student)
+		db.session.commit()
+
+		print("Npcs added!")
 
 
 # run the app
 if __name__ == "__main__":
     with app.app_context():
         print('Creating Database...')
-        # TODO: Uncomment this line in production
-        db.drop_all()
+        # db.drop_all()
         db.create_all()
         # TODO: Comment this loop in production
-        for i in range(3):
-            add_student(npc=True)
-    app.run(debug=True)
+        # add_npcs()
+    # app.run(host="0.0.0.0", port=81, debug=True)
+    app.run(host="0.0.0.0", port=81)
